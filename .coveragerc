@@ -1,0 +1,9 @@
+# .coveragerc
+
+# Don't cover migrations
+[run]
+omit = */migrations/*
+
+# Show missing tabs when running locally with django-nose:
+[report]
+show_missing = True

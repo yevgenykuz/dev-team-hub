@@ -1,0 +1,13 @@
+Django==2.0.1
+
+# Utils:
+# django settings organization:
+python-decouple==3.1
+dj-database-url==0.4.2
+# code coverage:
+coverage==4.4.2
+
+# Apps:
+# code testing:
+django-nose==1.4.5
+# other...
