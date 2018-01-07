@@ -1,8 +1,13 @@
 **Dev Team Hub**
 
-[![Build Status](https://travis-ci.org/yevgenykuz/dev-team-hub.svg?branch=master)](https://travis-ci.org/yevgenykuz/dev-team-hub)
-[![Coverage Status](https://coveralls.io/repos/github/yevgenykuz/dev-team-hub/badge.svg?branch=master&service=github)](https://coveralls.io/github/yevgenykuz/dev-team-hub?branch=master&service=github)
-[![Dependency Status](https://gemnasium.com/yevgenykuz/dev-team-hub.svg?branch=master)](https://gemnasium.com/yevgenykuz/dev-team-hub)
+.. image:: https://travis-ci.org/yevgenykuz/dev-team-hub.svg?branch=master
+    :target: https://travis-ci.org/yevgenykuz/dev-team-hub
+.. image:: https://coveralls.io/repos/github/yevgenykuz/dev-team-hub/badge.svg?branch=master
+    :target: https://coveralls.io/github/yevgenykuz/dev-team-hub?branch=master
+.. image:: https://gemnasium.com/badges/github.com/yevgenykuz/dev-team-hub.svg
+    :target: https://gemnasium.com/github.com/yevgenykuz/dev-team-hub    
+
+-----
 
 A basic website for development teams.
 
