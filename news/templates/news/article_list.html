@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>News List</h1>
+    {% if article_list %}
+        <ul>
+
+            {% for article in article_list %}
+                <li>
+                    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a> ({{ article.created_by }})
+                </li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <p>There are no news articles.</p>
+    {% endif %}
+{% endblock %}

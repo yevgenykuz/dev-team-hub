@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_nose',
+
+    'hub.apps.HubConfig',
+    'news.apps.NewsConfig',
+    'wiki.apps.WikiConfig',
+    'forum.apps.ForumConfig',
 ]
 
 MIDDLEWARE = [
