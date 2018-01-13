@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="description" content="A development team hub">
     <meta name="author" content="Yevgeny Kuznetsov">
-    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
 
-    <!-- title block is added to base title -->
+    <!-- Title block is added to base title -->
     <!-- TODO: Get "Dev Team Hub" from a variable configured in admin page -->
     <title>Dev Team Hub {% block title %}{% endblock %}</title>
 
@@ -20,19 +20,18 @@
           integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <!-- Custom base CSS -->
     <!-- TODO: Understand this css and update it with custom colors -->
-    <link href="{% static 'css/base_style.css' %}" rel="stylesheet">
-    <!-- Custom CSS block for 'child' templates -->
+    <link href="{% static 'base_style.css' %}" rel="stylesheet">
+    <!-- Custom CSS block for 'child' templates to override: -->
     {% block stylesheet %}{% endblock %}
 </head>
 
 <body>
-<!-- custom, nav-bar free, body block for 'child' templates -->
-{% block body %}
-
+<!-- Custom nav-bar block for 'child' templates to override: -->
+{% block nav-bar %}
     <!-- nav-bar -->
     <!-- TODO: Create an .svg file for logo -->
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'img/favicon.ico' %}" width="30"
+        <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'favicon.ico' %}" width="30"
                                                               height="30" class="d-inline-block align-top" alt=""> Dev
             Team Hub</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -105,21 +104,18 @@
             {% endif %}
         </div>
     </nav>
+{% endblock %}
 
-    <!-- Main content container: -->
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
-
-
-{% endblock body %}
+<!-- Main content container: -->
+<main role="main" class="container">
+    {% block content %}
+    {% endblock %}
+</main><!-- /.container -->
 
 <!-- Footer container -->
-<footer class="container">
-    <hr>
+<footer class="footer">
     <!-- TODO: Get "Dev Team Hub" from a variable configured in admin page - same as header -->
-    <p>&copy; Dev Team Hub</p>
+    <p>&copy; Dev Team Hub <a href="#">&#8686;</a></p>
 </footer><!-- Footer container end-->
 
 
@@ -134,7 +130,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
         integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
         crossorigin="anonymous"></script>
-<!-- Custom JS block for 'child' templates: -->
+<!-- Custom JS block for 'child' templates to override: -->
 {% block javascript %}{% endblock %}
 </body>
 </html>

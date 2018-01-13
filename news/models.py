@@ -1,5 +1,6 @@
 import datetime
 
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -25,7 +26,8 @@ class Article(models.Model):
     slug = models.SlugField(max_length=255, unique=True, editable=False)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
-    body = models.TextField(max_length=20000, help_text="Write the article here")
+    published = models.BooleanField(default=False)
+    body = RichTextField(max_length=20000, help_text="Write the article here")
     tags = models.ManyToManyField(Tag, blank=True, help_text="Add tags that describe this article")
 
     class Meta:

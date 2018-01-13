@@ -1,0 +1,11 @@
+{% extends 'news/article_list.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="article">
+        <h2 class="article-title">{{ article.title }}</h2>
+        <p class="article-meta">{{ article.created_on }} by {{ article.created_by }}<br>Tags: {{ article.display_tags }}
+        </p>
+        {{ article.body|safe }}
+    </div>
+{% endblock %}
