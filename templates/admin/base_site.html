@@ -1,0 +1,17 @@
+{% extends "admin/base.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+{% endblock %}
+
+<!-- TODO: Get "Dev Team Hub" from a variable configured in admin page -->
+{% block title %}{{ title }} | Dev Team Hub admin{% endblock %}
+
+{% block branding %}
+    <!-- TODO: Get "Dev Team Hub" from a variable configured in admin page -->
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">Dev Team Hub administration</a>
+    </h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
