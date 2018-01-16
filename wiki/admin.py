@@ -23,4 +23,5 @@ class SectionAdmin(admin.ModelAdmin):
 class EntryAdmin(admin.ModelAdmin):
     list_display = ["name", "section", "published"]
     list_filter = ["section", "published"]
+    fields = [("name", "published"), "section", "value", "custom_fields_presentation_order", "custom_fields"]
     filter_horizontal = ["custom_fields_presentation_order", "custom_fields"]

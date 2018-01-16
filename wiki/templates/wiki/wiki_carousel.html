@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link href="{% static 'wiki/wiki_style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}| Wiki{% endblock %}
+
+{% block content %}
+    <h1>Wiki</h1>
+    {% if entries_per_section %}
+        <div id="wikiCarousel" class="carousel slide" data-ride="false">
+            <!--  Carousel indicators (section names) -->
+            <ol class="carousel-indicators">
+                {% for section in entries_per_section %}
+                    <li data-target="#wikiCarousel"
+                        data-slide-to="{{ forloop.counter0 }}"
+                        class="{% if forloop.first %}active{% endif %}">{{ section.name }}
+                    </li>
+                {% endfor %}
+            </ol>
+            <!--  Carousel items -->
+            <!-- TODO: Beautify design -->
+            <div class="carousel-inner">
+                {% for section, entries in entries_per_section.items %}
+                    <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                        <ul class="carousel-section-entries">
+                            {% for entry in entries %}
+                                <li><a href="{{ entry.get_absolute_url }}">{{ entry.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+            <!--  Carousel control (arrows) -->
+            <!-- TODO: Change design to buttons line in news paginator -->
+            <a class="carousel-control-prev" href="#wikiCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#wikiCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    {% else %}
+        <p>There are no wiki entries.</p>
+    {% endif %}
+{% endblock %}

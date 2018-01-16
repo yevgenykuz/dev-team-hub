@@ -1,5 +1,6 @@
 from ckeditor.fields import RichTextField
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
 
@@ -81,3 +82,7 @@ class Entry(models.Model):
         # update slug field when saving from admin:
         self.slug = self.section.slug + "-" + slugify(self.name)
         super(Entry, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        # the url of an entry is represented by the entry slug:
+        return reverse("wiki_entry", args=[self.slug])

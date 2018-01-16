@@ -1,0 +1,26 @@
+{% extends 'wiki/wiki_carousel.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Wiki entry -->
+    <!-- TODO: Beautify design -->
+    <div>
+        <h2>{{ entry.name }} [{{ entry.section.name }}]</h2>
+        {{ entry.value|safe }}
+        {% if entry_custom_fields_per_type %}
+            <ul>
+                {% for custom_field_type, custom_fields in entry_custom_fields_per_type.items %}
+                    <li><h4>{{ custom_field_type.name_plural }}</h4>
+                        <ul>
+                            {% for custom_field in custom_fields %}
+                                <li><h5>{{ custom_field.name }}</h5>
+                                    {{ custom_field.value|safe }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}
