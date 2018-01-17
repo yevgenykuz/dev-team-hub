@@ -1,5 +1,7 @@
-from django.http import HttpResponse
+from django.views.generic import ListView
+
+from .models import Category
 
 
-def forum(request):
-    return HttpResponse("Forum -> forum")
+class CategoryListView(ListView):
+    model = Category

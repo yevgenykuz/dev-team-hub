@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from wiki.models import CustomFieldType, CustomField, Section, Entry
+from .models import CustomFieldType, CustomField, Section, Entry
 
 
 @admin.register(CustomFieldType)

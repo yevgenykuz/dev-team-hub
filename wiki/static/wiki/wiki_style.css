@@ -20,7 +20,7 @@
     height: 25px;
     border-radius: 0;
     border: solid 1px #242424;
-    background: rgba(0, 255, 188, 0.35);
+    background: rgba(91, 192, 222, 0.92);
     text-indent: 0;
     text-align: center
 }
@@ -32,7 +32,9 @@
 
 .carousel-section-entries {
     text-align: center;
-    display: inline-block
+    display: inline-block;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 /* Change control (arrows) color */

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from news.models import Tag, Article
+from .models import Tag, Article
 
 
 @admin.register(Tag)
