@@ -11,7 +11,7 @@ from django.template.defaultfilters import slugify
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=60, unique=True, editable=False)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000, help_text="What kind of topics should be in this category?")
 
     class Meta:
         ordering = ["slug"]
