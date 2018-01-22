@@ -35,7 +35,6 @@ class PostListView(ListView):
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        # TODO: research about sessions a bit more
         # use sessions to prevent the same user refreshing the page counting as multiple views:
         session_key = 'viewed_topic_{}'.format(self.topic.pk)
         if not self.request.session.get(session_key, False):

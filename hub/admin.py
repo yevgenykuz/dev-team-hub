@@ -5,7 +5,8 @@ from .models import CustomLink, SiteConfig
 
 @admin.register(CustomLink)
 class CustomLinkAdmin(admin.ModelAdmin):
-    list_display = ("name", "url")
+    list_display = ("name", "url", "order_id")
+    fields = [("name", "order_id"), "url"]
 
 
 @admin.register(SiteConfig)

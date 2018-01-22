@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
           integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <!-- Custom base CSS -->
-    <!-- TODO: Update this CSS with custom colors -->
     <link href="{% static 'base_style.css' %}" rel="stylesheet">
     <!-- Custom CSS block for 'child' templates to override: -->
     {% block stylesheet %}{% endblock %}
@@ -29,13 +28,11 @@
 <!-- Custom nav-bar block for 'child' templates to override: -->
 {% block nav-bar %}
     <!-- nav-bar -->
-    <!-- TODO: Create an .svg file for logo -->
-    <!-- TODO: Make this navbar simpler - to much code and classes -->
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'favicon.ico' %}" width="30"
-                                                                  height="30" class="d-inline-block align-top" alt="">
-                {% site_name request %}</a>
+                                                                  height="30" class="d-inline-block align-top"
+                                                                  alt="">{% site_name request %}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -56,20 +53,22 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown">Links</a>
                         <div class="dropdown-menu">
-                            {# TODO: fix this: #}
-                            {% site_custom_links request %}
+                            {% site_custom_links request as links %}
+                            {% for link_name, link_url in links.items %}
+                                <a class="dropdown-item" href="{{ link_url }}">{{ link_name }}</a>
+                            {% endfor %}
                             {% if user.is_authenticated and user.is_staff %}
-                                <!-- TODO: Link "Links" to specific admin page to update variables of custom links: -->
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'admin:index' %}">Edit Links</a>
+                                <a class="dropdown-item" href="{% url 'admin:hub_customlink_changelist' %}">Edit
+                                    Links</a>
                             {% endif %}
                         </div>
                     </li>
                 </ul>
                 <!-- current version: -->
                 {% if user.is_authenticated and user.is_staff %}
-                    <!-- TODO: Link to admin page to update variable of current version: -->
-                    <a class="btn btn-success" href="{% url 'admin:index' %}" role="button" data-toggle="tooltip"
+                    <a class="btn btn-success" href="{% url 'admin:hub_siteconfig_change' 1 %}" role="button"
+                       data-toggle="tooltip"
                        data-placement="bottom" title="Edit in admin panel">Current
                         Version: {% site_current_release_version request %}</a>
                 {% else %}
@@ -77,7 +76,7 @@
                         Version: {% site_current_release_version request %}</button>
                 {% endif %}
                 <!-- search: -->
-                <form class="form-inline ml-5 my-2 my-lg-0">
+                <form class="form-inline ml-2 my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
                     <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
                 </form>

@@ -3,10 +3,12 @@ from django.db import models
 
 class CustomLink(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    order_id = models.PositiveSmallIntegerField(unique=True, default=0,
+                                                help_text="Order for custom links drop-down menu")
     url = models.CharField(max_length=255)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["order_id"]
 
     def __str__(self):
         return f"[{self.name}]: {self.url}"
@@ -15,7 +17,7 @@ class CustomLink(models.Model):
 class SiteConfig(models.Model):
     name = models.CharField(max_length=50, default="Dev Team Hub")
     current_release_version = models.CharField(max_length=50, default="0.0.1-SNAPSHOT")
-    custom_links = models.ManyToManyField(CustomLink, blank=True, help_text="Choose custom links, order is important")
+    custom_links = models.ManyToManyField(CustomLink, blank=True, help_text="Choose custom links")
 
     def __str__(self):
         return f"[{self.name}]: Current release version: {self.current_release_version}; Custom links: " \
