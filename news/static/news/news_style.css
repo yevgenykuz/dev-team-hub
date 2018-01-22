@@ -34,12 +34,3 @@
 .sidebar-module-inset ol:last-child {
     margin-bottom: 0;
 }
-
-/* Pagination */
-.news-pagination {
-    margin-bottom: 4rem;
-}
-
-.news-pagination > .btn {
-    border-radius: 2rem;
-}

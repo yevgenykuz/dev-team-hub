@@ -15,7 +15,7 @@
 {% block content %}
     <form method="post" class="mb-4" novalidate>
         {% csrf_token %}
-        {% include 'forum/includes/form.html' %}
+        {% include 'includes/form.html' %}
         <button type="submit" class="btn btn-success">Post a reply</button>
     </form>
 
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="post-body">
-                    {{ post.body }}
+                    {{ post.body|safe }}
                 </div>
             </div>
         </div>

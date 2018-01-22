@@ -53,7 +53,7 @@ class Topic(models.Model):
 
     def get_page_count(self):
         count = self.post_set.count()
-        pages = count / 20
+        pages = count / 10
         return int(math.ceil(pages))
 
     def has_many_pages(self, count=None):

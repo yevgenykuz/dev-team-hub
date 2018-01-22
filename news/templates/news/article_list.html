@@ -36,29 +36,22 @@
                 </div>
             {% endif %}
 
-            {% if is_paginated %}
-                <nav class="news-pagination">
-                    {% if page_obj.has_next %}
-                        <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">Older</a>
-                    {% endif %}
-                    {% if page_obj.has_previous %}
-                        <a class="btn btn-outline-secondary" href="?page={{ page_obj.previous_page_number }}">Newer</a>
-                    {% endif %}
-                </nav>
-            {% endif %}
+            {% include 'includes/pagination.html' %}
 
         </div><!-- /.news-main -->
 
-        <aside class="col-sm-3 ml-sm-auto news-sidebar">
-            <div class="sidebar-module">
-                <h4>Tags</h4>
-                <ol class="list-unstyled">
-                    {% for tag in tag_list %}
-                        <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
-                    {% endfor %}
-                </ol>
-            </div>
-        </aside><!-- /.news-sidebar -->
+        {% if tag_list %}
+            <aside class="col-sm-3 ml-sm-auto news-sidebar">
+                <div class="sidebar-module">
+                    <h4>Tags</h4>
+                    <ol class="list-unstyled">
+                        {% for tag in tag_list %}
+                            <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </aside><!-- /.news-sidebar -->
+        {% endif %}
 
     </div><!-- /.row -->
 {% endblock %}
