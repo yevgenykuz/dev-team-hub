@@ -9,8 +9,10 @@ class NewsListView(ListView):
     paginate_by = 3
 
     def get_context_data(self, **kwargs):
-        kwargs['tag_list'] = Tag.objects.all()
-        return super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context['tag_list'] = Tag.objects.all()
+        context.update(self.kwargs)
+        return context
 
     def get_queryset(self):
         try:

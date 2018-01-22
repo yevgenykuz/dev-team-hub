@@ -7,8 +7,11 @@
 
 {% block title %}| Wiki{% endblock %}
 
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Wiki</li>
+{% endblock %}
+
 {% block content %}
-    <h1>Wiki</h1>
     {% if entries_per_section %}
         <div id="wikiCarousel" class="carousel slide" data-ride="false">
             <!--  Carousel indicators (section names) -->

@@ -1,5 +1,11 @@
 {% extends 'wiki/wiki_carousel.html' %}
-{% load static %}
+
+{% block title %}| Wiki{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'wiki' %}">Wiki</a></li>
+    <li class="breadcrumb-item active">{{ entry.name }}</li>
+{% endblock %}
 
 {% block content %}
     <!-- Wiki entry -->

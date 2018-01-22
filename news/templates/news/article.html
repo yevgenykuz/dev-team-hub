@@ -1,5 +1,9 @@
 {% extends 'news/article_list.html' %}
-{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'news' %}">News</a></li>
+    <li class="breadcrumb-item active">{{ article.title }}</li>
+{% endblock %}
 
 {% block content %}
     <div class="article">

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block stylesheet %}
     <link href="{% static 'forum/forum_style.css' %}" rel="stylesheet">
@@ -7,8 +8,11 @@
 
 {% block title %}| Forum{% endblock %}
 
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Forum</li>
+{% endblock %}
+
 {% block content %}
-    <h1>Forum</h1>
     <table class="table">
         <thead class="thead-inverse">
         <tr>
@@ -22,21 +26,21 @@
         {% for category in category_list %}
             <tr>
                 <td>
-                    <a href="{% url 'category_topics' category.pk %}">{{ category.name }}</a>
+                    <a href="{% url 'topics_of_category' category.slug %}">{{ category.name }}</a>
                     <small class="text-muted d-block">{{ category.description }}</small>
                 </td>
                 <td class="align-middle">
                     {{ category.get_posts_count }}
                 </td>
                 <td class="align-middle">
-                    {{ category.topics.count }}
+                    {{ category.topic_set.count }}
                 </td>
                 <td class="align-middle">
                     {% with post=category.get_last_post %}
                         {% if post %}
                             <small>
-                                <a href="{% url 'topic_posts' category.pk post.topic.pk %}">
-                                    By {{ post.created_by.username }} at {{ post.created_at }}
+                                <a href="{% url 'posts_of_topic' category.slug post.topic.slug %}">
+                                    By {{ post.updated_by.username }}, {{ post.last_updated|naturaltime }}
                                 </a>
                             </small>
                         {% else %}

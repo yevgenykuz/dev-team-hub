@@ -13,4 +13,5 @@ django-nose==1.4.5
 # rich-text editor:
 django-ckeditor==5.4.0
 django-js-asset==0.1.1
-# other...
+# form field rendering:
+django-widget-tweaks==1.4.1

@@ -7,15 +7,17 @@
 
 {% block title %}| News{% endblock %}
 
+{% block breadcrumb %}
+    {% if tag %}
+        <li class="breadcrumb-item active"><a href="{% url 'news' %}">News</a> - {{ tag }}</li>
+    {% else %}
+        <li class="breadcrumb-item active">News</li>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     <div class="row">
-
         <div class="col-sm-8 news-main">
-            {% if tag %}
-                <h1>News - {{ tag }}</h1>
-            {% else %}
-                <h1>News</h1>
-            {% endif %}
             {% if article_list %}
                 {% for article in article_list %}
                     <div class="article">

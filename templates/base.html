@@ -112,15 +112,21 @@
 
 <!-- Main content container: -->
 <main role="main" class="container">
+    <!-- Breadcrumb block: -->
+    <ol class="breadcrumb my-4">
+        {% block breadcrumb %}
+        {% endblock %}
+    </ol>
+    <!-- Content block: -->
     {% block content %}
     {% endblock %}
-</main><!-- /.container -->
+</main>
 
 <!-- Footer container -->
 <footer class="footer">
     <!-- TODO: Get "Dev Team Hub" from a variable configured in admin page - same as header -->
     <p>&copy; Dev Team Hub <a href="#">&#8686;</a></p>
-</footer><!-- Footer container end-->
+</footer>
 
 
 <!-- Bootstrap JavaScripts -->

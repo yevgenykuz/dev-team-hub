@@ -36,9 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     'django_nose',
     'ckeditor',
+    'widget_tweaks',
 
     'hub.apps.HubConfig',
     'news.apps.NewsConfig',

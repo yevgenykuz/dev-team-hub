@@ -1,4 +1,8 @@
+import math
+
 from ckeditor.fields import RichTextField
+from ckeditor.widgets import CKEditorWidget
+from django import forms
 from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -17,9 +21,15 @@ class Category(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        # update slug field when saving from admin:
+        # update slug field when saving:
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
+
+    def get_posts_count(self):
+        return Post.objects.filter(topic__category=self).count()
+
+    def get_last_post(self):
+        return Post.objects.filter(topic__category=self).order_by('-last_updated').first()
 
 
 class Topic(models.Model):
@@ -37,9 +47,40 @@ class Topic(models.Model):
         return self.subject
 
     def save(self, *args, **kwargs):
-        # update slug field when saving - subject-pk:
-        self.slug = slugify(self.subject) + '-' + self.pk
+        # update slug field when saving:
+        self.slug = slugify(self.subject) + '-' + str(self.pk)
         super(Topic, self).save(*args, **kwargs)
+
+    def get_page_count(self):
+        count = self.post_set.count()
+        pages = count / 20
+        return int(math.ceil(pages))
+
+    def has_many_pages(self, count=None):
+        if count is None:
+            count = self.get_page_count()
+        return count > 6
+
+    def get_page_range(self):
+        count = self.get_page_count()
+        if self.has_many_pages(count):
+            return range(1, 5)
+        return range(1, count + 1)
+
+    def get_last_ten_posts(self):
+        return self.post_set.order_by('-last_updated')[:10]
+
+
+class NewTopicForm(forms.ModelForm):
+    body = forms.CharField(
+        widget=CKEditorWidget(),
+        max_length=5000,
+        help_text='The max length of the text is 5000.'
+    )
+
+    class Meta:
+        model = Topic
+        fields = ['subject', 'body']
 
 
 class Post(models.Model):
@@ -53,3 +94,9 @@ class Post(models.Model):
 
     def __str__(self):
         return (self.body[:50] + '...') if len(self.body) > 50 else self.body
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['body', ]
