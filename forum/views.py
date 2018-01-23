@@ -5,8 +5,9 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, UpdateView
+from forum.forms import NewTopicForm, PostForm
 
-from .models import Category, Topic, Post, NewTopicForm, PostForm
+from .models import Category, Topic, Post
 
 
 class CategoryListView(ListView):

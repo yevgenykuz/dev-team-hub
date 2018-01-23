@@ -1,8 +1,6 @@
 import math
 
 from ckeditor.fields import RichTextField
-from ckeditor.widgets import CKEditorWidget
-from django import forms
 from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -71,18 +69,6 @@ class Topic(models.Model):
         return self.post_set.order_by('-last_updated')[:10]
 
 
-class NewTopicForm(forms.ModelForm):
-    body = forms.CharField(
-        widget=CKEditorWidget(),
-        max_length=5000,
-        help_text='The max length of the text is 5000.'
-    )
-
-    class Meta:
-        model = Topic
-        fields = ['subject', 'body']
-
-
 class Post(models.Model):
     body = RichTextField(max_length=5000)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
@@ -94,9 +80,3 @@ class Post(models.Model):
 
     def __str__(self):
         return (self.body[:50] + '...') if len(self.body) > 50 else self.body
-
-
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['body', ]
