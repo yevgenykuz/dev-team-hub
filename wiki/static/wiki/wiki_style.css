@@ -1,28 +1,27 @@
-/* Leave space below the carousel so that the pushed indicators don't interfere with content below the slider */
-.carousel-inner {
-    margin-bottom: 50px;
-}
-
 /* Move indicators under carousel, change colors, add text */
-.carousel-indicators li {
-    bottom: -50px;
-    width: 150px;
-    height: 25px;
-    border-radius: 0;
-    border: solid 1px #242424;
-    background: #a8a8a8;
-    text-indent: 0;
-    text-align: center
+.carousel-indicators {
+    position: relative;
 }
 
-.carousel-indicators li.active {
+.carousel-indicators li {
+    cursor: pointer;
     width: 150px;
     height: 25px;
-    border-radius: 0;
-    border: solid 1px #242424;
-    background: rgba(91, 192, 222, 0.92);
+    border: none;
+    color: #fff;
     text-indent: 0;
-    text-align: center
+    text-align: center;
+    background-color: #999;
+    transition: all 0.25s ease;
+}
+
+.carousel-indicators li.active, .carousel-indicators li:hover {
+    background-color: #428bca;
+}
+
+/* Carousel and its indicators are relative to not overlap */
+.carousel-inner {
+    position: relative;
 }
 
 /* Center the text inside a slide */
@@ -35,13 +34,4 @@
     display: inline-block;
     list-style-type: none;
     padding-left: 0;
-}
-
-/* Change control (arrows) color */
-.carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23aaa' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
-}
-
-.carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23aaa' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
 }

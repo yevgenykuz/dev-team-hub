@@ -60,7 +60,7 @@ class Section(models.Model):
 class Entry(models.Model):
     section = models.ForeignKey(Section, on_delete=models.SET_NULL, null=True,
                                 help_text="The section to witch this entry belongs")
-    name = models.CharField(max_length=200, help_text="A wiki entry")
+    name = models.CharField(max_length=200, unique=True, help_text="A wiki entry")
     slug = models.SlugField(max_length=255, unique=True, editable=False)
     published = models.BooleanField(default=False)
     value = RichTextField(max_length=20000, help_text="The value of this field", blank=True)
