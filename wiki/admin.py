@@ -16,7 +16,8 @@ class CustomFieldAdmin(admin.ModelAdmin):
 
 @admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):
-    list_display = ["name", "description"]
+    list_display = ["name", "description", "order_id"]
+    fields = [("name", "order_id"), "description"]
 
 
 @admin.register(Entry)

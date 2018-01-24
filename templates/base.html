@@ -16,8 +16,8 @@
     <!-- Bootstrap mobile devices optimization -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
-          integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Custom base CSS -->
     <link href="{% static 'base_style.css' %}" rel="stylesheet">
     <!-- Custom CSS block for 'child' templates to override: -->
@@ -85,20 +85,20 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userArea"
                            data-toggle="dropdown">{{ user.username }}</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">My account</a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{% url 'account' %}">My account</a>
                             {% if user.is_staff %}
                                 <a class="dropdown-item" href="{% url 'admin:index' %}">Admin panel</a>
                             {% endif %}
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log out</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
                         </div>
                     </li>
                 </ul>
             {% else %}
                 <form class="form-inline my-2 my-lg-0">
-                    <a href="{% url 'admin:index' %}" class="btn btn-outline-secondary ml-4">Log in</a>
-                    <a href="#" class="btn btn-primary ml-2">Sign up</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary ml-4">Log in</a>
+                    <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Sign up</a>
                 </form>
             {% endif %}
         </div>
@@ -131,8 +131,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
-        integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 <!-- Custom JS block for 'child' templates to override: -->
 {% block javascript %}

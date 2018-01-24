@@ -1,5 +1,25 @@
 {% extends 'hub/accounts/base.html' %}
 
+{% block title %}| Reset Password{% endblock %}
+
+{% block breadcrumb %}
+    {{ block.super }}
+    <li class="breadcrumb-item active">Password reset</li>
+{% endblock %}
+
 {% block content %}
-    Hub -> accounts -> pw_reset
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <p>Enter a valid email address to receive a link that resets your password.</p>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% include 'includes/form.html' %}
+                        <button type="submit" class="btn btn-primary btn-block">Send password reset email</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

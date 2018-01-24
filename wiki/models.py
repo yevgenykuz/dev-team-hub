@@ -44,9 +44,11 @@ class Section(models.Model):
     name = models.CharField(max_length=200, unique=True, help_text="A wiki section/category")
     slug = models.SlugField(max_length=255, unique=True, editable=False)
     description = models.TextField(max_length=2500, help_text="Describe this wiki section")
+    order_id = models.PositiveSmallIntegerField(unique=True, default=0,
+                                                help_text="Order in wiki sections menu")
 
     class Meta:
-        ordering = ["slug"]
+        ordering = ["order_id"]
 
     def __str__(self):
         return self.name

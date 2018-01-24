@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'django_nose',
     'ckeditor',
+    'widget_tweaks',
 
     'hub.apps.HubConfig',
     'news.apps.NewsConfig',

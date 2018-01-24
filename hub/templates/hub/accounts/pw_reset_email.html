@@ -1,9 +1,9 @@
 Dear {{ user.username }},
 
-Click the link below to reset the password:
-{{ protocol }}://{{ domain }}{% url 'pw_reset_from_emailed_link' uidb64=uid token=token %}
+Click the link below to reset your password:
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
 
-If you do not wish to change your password, disregard this email.
+If you do not wish to reset your password, disregard this email.
 
 Thanks,
 
