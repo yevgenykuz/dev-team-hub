@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+{% load staticfiles %}
+{% load site_config_tags %}
+
+{% block extrahead %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+{% endblock %}
+
+{% block title %}{{ title }} | {% site_name request %} admin{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">{% site_name request %} administration</a>
+    </h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'forum/post_list.html' %}
+
+{% block title %}| Forum{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'forum' %}">Forum</a></li>
+    <li class="breadcrumb-item"><a
+            href="{% url 'topics_of_category' post.topic.category.slug %}">{{ post.topic.category.name }}</a></li>
+    <li class="breadcrumb-item"><a
+            href="{% url 'posts_of_topic' post.topic.category.slug post.topic.slug %}">{{ post.topic.subject }}</a>
+    </li>
+    <li class="breadcrumb-item active">Edit post</li>
+{% endblock %}
+
+{% block content %}
+    <form method="post" class="mb-4" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <button type="submit" class="btn btn-success">Save changes</button>
+        <a href="{% url 'posts_of_topic' post.topic.category.slug post.topic.slug %}" class="btn btn-outline-secondary"
+           role="button">Cancel</a>
+    </form>
+{% endblock %}

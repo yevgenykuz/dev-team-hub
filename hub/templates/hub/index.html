@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}| Home{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Hub</li>
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Welcome to the hub!</h1>
+            <p>This site is meant to bridge between a development team that develops internal products for its company,
+                and the users of those products. <br>The hub contains 3 main sections - news, wiki and forum. Read more
+                about them below. <br>Don't forget to sign up, and have fun ! </p>
+            <p><a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>News</h2>
+                <p>The news page contains announcements from the development team. <br>Stuff you'll probably find there:
+                    <br>release notes, infrastructure maintenance and changes, important updates, etc. </p>
+                <p><a class="btn btn-secondary" href="{% url 'news' %}" role="button">News &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Wiki</h2>
+                <p>The wiki page is the knowledge base of the development team and its products. <br>Stuff you'll
+                    probably find there: <br>product information, infrastructure information, development guidelines,
+                    etc. </p>
+                <p><a class="btn btn-secondary" href="{% url 'wiki' %}" role="button">Wiki &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Forum</h2>
+                <p>The forum page is a public place to discuss and ask questions. <br>Stuff you'll probably find there:
+                    <br>support, product suggestions, development flow suggestions, etc. </p>
+                <p><a class="btn btn-secondary" href="{% url 'forum' %}" role="button">Forum &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

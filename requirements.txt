@@ -1,6 +1,8 @@
 Django==2.0.1
 
 # Utils:
+# postgres driver:
+psycopg2==2.7.3.2
 # django settings organization:
 python-decouple==3.1
 dj-database-url==0.4.2
@@ -10,4 +12,9 @@ coverage==4.4.2
 # Apps:
 # code testing:
 django-nose==1.4.5
-# other...
+# rich-text editor:
+django-ckeditor==5.4.0
+django-js-asset==0.1.1
+# form presentation:
+django-widget-tweaks==1.4.1
+

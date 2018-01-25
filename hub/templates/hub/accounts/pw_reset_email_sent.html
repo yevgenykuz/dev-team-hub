@@ -1,0 +1,21 @@
+{% extends 'hub/accounts/base.html' %}
+
+{% block title %}| Password Reset Email Sent{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Password reset email sent</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <p>To reset your password, check your email. If you do not receive an email within five minutes
+                        check your spam folder.</p>
+                    <a href="{% url 'index' %}" class="btn btn-secondary btn-block">Return to home page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

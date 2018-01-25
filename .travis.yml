@@ -5,27 +5,26 @@ python:
   - "3.6"
 
 # ask for database service:
-#services:
-#  - postgresql
+services:
+  - postgresql
 
 # create local .env file from .travis.env:
 before_install:
   - mv .travis.env .env
 
-# install dependencies, coveralls, and db driver:
+# install dependencies and coveralls:
 install:
   - pip install -r requirements.txt
   - pip install coveralls
-#  - pip install psycopg2 --quiet
 
-# set up database and make migrations before tests:
-#before_script:
-#  - psql -c "CREATE DATABASE tdb;" -U postgres
-#  - python manage.py makemigrations
+# set up database, make migrations and migrate before tests:
+before_script:
+  - psql -c "CREATE DATABASE devteamhub;" -U devteamhubadmin
+  - python manage.py makemigrations
+  - python manage.py migrate
 
-# run migrate, create super user, and then tests on specific apps
+# create super user, and then tests on specific apps
 script:
-#  - python manage.py migrate
 #  - echo "from django.contrib.auth.models import User; User.objects.filter(email='admin@example.com').delete(); User.objects.create_superuser('admin', 'admin@example.com', 'nimda')" | python manage.py shell
   - python manage.py test
 #  - coverage run manage.py test

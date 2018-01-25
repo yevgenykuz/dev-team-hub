@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load site_config_tags %}
+
+<!-- remove nav-bar -->
+{% block nav-bar %}{% endblock %}
+
+<!-- link to home -->
+{% block breadcrumb %}
+    <li class="breadcrumb-item "><a href="{% url 'index' %}">{% site_name request %}</a></li>
+{% endblock %}

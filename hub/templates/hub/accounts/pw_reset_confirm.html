@@ -1,0 +1,35 @@
+{% extends 'hub/accounts/base.html' %}
+
+{% block title %}| Password Reset Confirmation{% endblock %}
+
+{% block breadcrumb %}
+    {% if validlink %}
+        <li class="breadcrumb-item active">Password reset for @{{ form.user.username }}</li>
+    {% else %}
+        <li class="breadcrumb-item active">Password reset failed</li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card">
+                <div class="card-body">
+                    {% if validlink %}
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            {% include 'includes/form.html' %}
+                            <button type="submit" class="btn btn-success btn-block">Update password</button>
+                        </form>
+                    {% else %}
+                        <div class="alert alert-danger" role="alert">
+                            It looks like you've clicked on an invalid password reset link. Please try again.
+                        </div>
+                        <a href="{% url 'password_reset' %}" class="btn btn-secondary btn-block">Request a new password
+                            reset link</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

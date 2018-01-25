@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link href="{% static 'news/news_style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}| News{% endblock %}
+
+{% block breadcrumb %}
+    {% if tag %}
+        <li class="breadcrumb-item active"><a href="{% url 'news' %}">News</a> - {{ tag }}</li>
+    {% else %}
+        <li class="breadcrumb-item active">News</li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8 news-main">
+            {% if article_list %}
+                {% for article in article_list %}
+                    <div class="article">
+                        <hr>
+                        <h2 class="article-title">{{ article.title }}</h2>
+                        <p class="article-meta">{{ article.created_on }}
+                            by {{ article.created_by }}<br>Tags: {{ article.display_tags }}
+                        </p>
+                        {{ article.body|safe|truncatewords:50 }}
+                        <a href="{{ article.get_absolute_url }}">Continue Reading =></a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="article">
+                    <p>There are no news articles.</p>
+                </div>
+            {% endif %}
+
+            {% include 'includes/pagination.html' %}
+
+        </div><!-- /.news-main -->
+
+        {% if tag_list %}
+            <aside class="col-sm-3 ml-sm-auto news-sidebar">
+                <div class="sidebar-module">
+                    <h4>Tags</h4>
+                    <ol class="list-unstyled">
+                        {% for tag in tag_list %}
+                            <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </aside><!-- /.news-sidebar -->
+        {% endif %}
+
+    </div><!-- /.row -->
+{% endblock %}

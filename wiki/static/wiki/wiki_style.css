@@ -1,0 +1,49 @@
+/* Move indicators under carousel, change colors, add text */
+.carousel-indicators {
+    position: relative;
+}
+
+.carousel-indicators li {
+    cursor: pointer;
+    width: 200px;
+    height: 25px;
+    border: none;
+    color: #fff;
+    text-indent: 0;
+    text-align: center;
+    background-color: #999;
+    transition: all 0.25s ease;
+}
+
+.carousel-indicators li.active, .carousel-indicators li:hover {
+    background-color: #428bca;
+}
+
+/* Carousel and its indicators are relative to not overlap */
+.carousel-inner {
+    position: relative;
+}
+
+/* Center the text inside a slide */
+.carousel-item {
+    text-align: center;
+}
+
+.carousel-section-entries {
+    text-align: center;
+    display: inline-block;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* Remove left padding from wiki cards*/
+.wiki-entry-custom-fields {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* Inner scroll in section card */
+.inner-scroll {
+    height: 650px;
+    overflow-y: scroll;
+}

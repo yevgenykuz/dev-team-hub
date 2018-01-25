@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link href="{% static 'wiki/wiki_style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}| Wiki{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Wiki</li>
+{% endblock %}
+
+{% block content %}
+    {% if entries_per_section %}
+        <div id="wikiCarousel" class="carousel slide" data-ride="false">
+            <!--  Carousel indicators (section names) -->
+            <ol class="carousel-indicators">
+                {% for section in entries_per_section %}
+                    <li data-target="#wikiCarousel"
+                        data-slide-to="{{ forloop.counter0 }}"
+                        class="{% if forloop.first %}active{% endif %}">{{ section.name }}
+                    </li>
+                {% endfor %}
+            </ol>
+
+            <!--  Carousel items -->
+            <div class="carousel-inner">
+                {% for section, entries in entries_per_section.items %}
+                    <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                        {% if entries %}
+                            <!-- TODO: Stretch this card to full height (h-100 in all parent divs?): -->
+                            <div class="card">
+                                <div class="card-body inner-scroll">
+                                    <ul class="carousel-section-entries">
+                                        {% for entry in entries %}
+                                            <li><a href="{{ entry.get_absolute_url }}">{{ entry.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>There are no wiki entries.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'hub/accounts/base.html' %}
+
+{% block title %}| Password Reset Complete{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Password reset complete</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="alert alert-success" role="alert">
+                        Password reset complete. You can now log in with your new password.
+                    </div>
+                    <a href="{% url 'login' %}" class="btn btn-secondary btn-block">Return to log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

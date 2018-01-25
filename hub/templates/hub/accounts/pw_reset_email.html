@@ -1,0 +1,12 @@
+{% load site_config_tags %}
+
+Dear {{ user.username }},
+
+Click the link below to reset your password:
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+
+If you do not wish to reset your password, disregard this email.
+
+Thanks,
+
+{% site_name request %} Team
