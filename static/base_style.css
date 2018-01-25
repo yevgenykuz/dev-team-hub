@@ -5,14 +5,14 @@ html {
 
 body {
     padding-top: 3rem;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
 }
 
 /*
  * Nav-bar
  */
 .navbar-brand {
-    font-family: 'Lato', cursive;
+    font-family: 'Roboto', sans-serif;
 }
 
 /*

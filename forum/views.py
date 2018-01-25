@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, UpdateView
-from forum.forms import NewTopicForm, PostForm
 
+from forum.forms import NewTopicForm, PostForm
 from .models import Category, Topic, Post
 
 
@@ -16,7 +16,7 @@ class CategoryListView(ListView):
 
 class TopicListView(ListView):
     model = Topic
-    paginate_by = 10
+    paginate_by = 8
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -33,7 +33,7 @@ class TopicListView(ListView):
 
 class PostListView(ListView):
     model = Post
-    paginate_by = 10
+    paginate_by = 8
 
     def get_context_data(self, **kwargs):
         # use sessions to prevent the same user refreshing the page counting as multiple views:

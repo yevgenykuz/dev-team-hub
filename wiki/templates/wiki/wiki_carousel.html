@@ -25,15 +25,21 @@
             </ol>
 
             <!--  Carousel items -->
-            <!-- TODO: Beautify design -->
             <div class="carousel-inner">
                 {% for section, entries in entries_per_section.items %}
                     <div class="carousel-item{% if forloop.first %} active{% endif %}">
-                        <ul class="carousel-section-entries">
-                            {% for entry in entries %}
-                                <li><a href="{{ entry.get_absolute_url }}">{{ entry.name }}</a></li>
-                            {% endfor %}
-                        </ul>
+                        {% if entries %}
+                            <!-- TODO: Stretch this card to full height (h-100 in all parent divs?): -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul class="carousel-section-entries">
+                                        {% for entry in entries %}
+                                            <li><a href="{{ entry.get_absolute_url }}">{{ entry.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

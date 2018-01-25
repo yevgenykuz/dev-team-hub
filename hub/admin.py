@@ -11,7 +11,7 @@ class CustomLinkAdmin(admin.ModelAdmin):
 
 @admin.register(SiteConfig)
 class SiteConfigAdmin(admin.ModelAdmin):
-    list_display = ("name", "current_release_version", "display_links")
+    list_display = ("name", "current_release_version", "current_release_notes", "display_links")
     filter_horizontal = ["custom_links"]
 
     def has_add_permission(self, request):

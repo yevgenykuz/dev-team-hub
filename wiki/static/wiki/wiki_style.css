@@ -26,12 +26,18 @@
 
 /* Center the text inside a slide */
 .carousel-item {
-    text-align: center
+    text-align: center;
 }
 
 .carousel-section-entries {
     text-align: center;
     display: inline-block;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* Remove left padding from wiki cards*/
+.wiki-entry-custom-fields {
     list-style-type: none;
     padding-left: 0;
 }

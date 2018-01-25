@@ -1,4 +1,5 @@
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -72,6 +73,8 @@ class Entry(models.Model):
     custom_fields = models.ManyToManyField(CustomField, blank=True,
                                            help_text="The custom fields (if any), "
                                                      "the order is the presentation order")
+    favorite_by = models.ManyToManyField(User,
+                                         help_text="A list of users that marked this entry as their favorite")
 
     class Meta:
         ordering = ["section__slug", "slug"]

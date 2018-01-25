@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
+from forum.models import Post
+from wiki.models import Entry
 from .forms import SignUpForm
 
 
@@ -34,3 +36,10 @@ class UserUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['favorite_wiki_entries'] = Entry.objects.filter(favorite_by__exact=self.request.user)
+        context['my_posts'] = Post.objects.filter(updated_by__exact=self.request.user)
+        context.update(self.kwargs)
+        return context

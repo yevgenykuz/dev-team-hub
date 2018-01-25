@@ -9,45 +9,49 @@
 {% endblock %}
 
 {% block content %}
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th>Category</th>
-            <th>Posts</th>
-            <th>Topics</th>
-            <th>Last Post</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for category in category_list %}
+    {% if category_list %}
+        <table class="table">
+            <thead class="thead-dark">
             <tr>
-                <td>
-                    <a href="{% url 'topics_of_category' category.slug %}">{{ category.name }}</a>
-                    <small class="text-muted d-block">{{ category.description }}</small>
-                </td>
-                <td class="align-middle">
-                    {{ category.get_posts_count }}
-                </td>
-                <td class="align-middle">
-                    {{ category.topic_set.count }}
-                </td>
-                <td class="align-middle">
-                    {% with post=category.get_last_post %}
-                        {% if post %}
-                            <small>
-                                <a href="{% url 'posts_of_topic' category.slug post.topic.slug %}">
-                                    By {{ post.updated_by.username }}, {{ post.last_updated|naturaltime }}
-                                </a>
-                            </small>
-                        {% else %}
-                            <small class="text-muted">
-                                <em>No posts yet.</em>
-                            </small>
-                        {% endif %}
-                    {% endwith %}
-                </td>
+                <th>Category</th>
+                <th>Posts</th>
+                <th>Topics</th>
+                <th>Last Post</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for category in category_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'topics_of_category' category.slug %}">{{ category.name }}</a>
+                        <small class="text-muted d-block">{{ category.description }}</small>
+                    </td>
+                    <td class="align-middle">
+                        {{ category.get_posts_count }}
+                    </td>
+                    <td class="align-middle">
+                        {{ category.topic_set.count }}
+                    </td>
+                    <td class="align-middle">
+                        {% with post=category.get_last_post %}
+                            {% if post %}
+                                <small>
+                                    <a href="{% url 'posts_of_topic' category.slug post.topic.slug %}">
+                                        By {{ post.updated_by.username }}, {{ post.last_updated|naturaltime }}
+                                    </a>
+                                </small>
+                            {% else %}
+                                <small class="text-muted">
+                                    <em>No posts yet.</em>
+                                </small>
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        There are no forum categories.
+    {% endif %}
 {% endblock %}

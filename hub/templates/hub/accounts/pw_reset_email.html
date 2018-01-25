@@ -1,3 +1,5 @@
+{% load site_config_tags %}
+
 Dear {{ user.username }},
 
 Click the link below to reset your password:
@@ -7,4 +9,4 @@ If you do not wish to reset your password, disregard this email.
 
 Thanks,
 
-Dev Team
+{% site_name request %} Team

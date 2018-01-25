@@ -4,27 +4,44 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item"><a href="{% url 'wiki' %}">Wiki</a></li>
-    <li class="breadcrumb-item active">{{ entry.name }}</li>
+    {% if user.is_authenticated %}
+        {% if user in favorite_by %}
+            {# TODO: Activate view methods when clicking on favorite buttons: #}
+            <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }} -
+                <a href="#" class="badge badge-info" data-toggle="tooltip"
+                   data-placement="bottom" title="Click to un-favorite">Favorite</a>
+            </li>
+        {% else %}
+            <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }} -
+                <a href="#" class="badge badge-warning">Mark as favorite</a>
+            </li>
+        {% endif %}
+    {% else %}
+        <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }}</li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
     <!-- Wiki entry -->
-    <!-- TODO: Beautify design -->
     <div>
-        <h2>{{ entry.name }} [{{ entry.section.name }}]</h2>
+        <h2>{{ entry.name }}</h2>
         {{ entry.value|safe }}
         {% if entry_custom_fields_per_type %}
-            <ul>
+            <hr>
+            <ul class="wiki-entry-custom-fields">
                 {% for custom_field_type, custom_fields in entry_custom_fields_per_type.items %}
-                    <li><h4>{{ custom_field_type.name_plural }}</h4>
-                        <ul>
-                            {% for custom_field in custom_fields %}
-                                <li><h5>{{ custom_field.name }}</h5>
-                                    {{ custom_field.value|safe }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
+                    <div class="card">
+                        <h5 class="card-header">{{ custom_field_type.name_plural }}</h5>
+                        <div class="card-body">
+                            <ul>
+                                {% for custom_field in custom_fields %}
+                                    <li><h6>{{ custom_field.name }}</h6>
+                                        {{ custom_field.value|safe }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 {% endfor %}
             </ul>
         {% endif %}

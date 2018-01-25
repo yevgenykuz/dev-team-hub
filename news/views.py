@@ -6,7 +6,7 @@ from .models import Article, Tag
 
 class NewsListView(ListView):
     model = Article
-    paginate_by = 3
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

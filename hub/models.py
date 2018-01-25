@@ -1,5 +1,7 @@
 from django.db import models
 
+from news.models import Article
+
 
 class CustomLink(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -17,6 +19,8 @@ class CustomLink(models.Model):
 class SiteConfig(models.Model):
     name = models.CharField(max_length=50, default="Dev Team Hub")
     current_release_version = models.CharField(max_length=50, default="0.0.1-SNAPSHOT")
+    current_release_notes = models.ForeignKey(Article, null=True, on_delete=models.SET_NULL,
+                                              help_text="Link to release notes article")
     custom_links = models.ManyToManyField(CustomLink, blank=True, help_text="Choose custom links")
 
     def __str__(self):

@@ -23,4 +23,5 @@ def entry(request, entry_slug):
                 custom_fields_of_given_type.append(custom_field)
         entry_custom_fields_per_type[custom_field_type] = custom_fields_of_given_type
     return render(request, template_name,
-                  {'entry': returned_entry, 'entry_custom_fields_per_type': entry_custom_fields_per_type})
+                  {'entry': returned_entry, 'entry_custom_fields_per_type': entry_custom_fields_per_type,
+                   'favorite_by': returned_entry.favorite_by.all()})
