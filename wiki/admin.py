@@ -5,13 +5,15 @@ from .models import CustomFieldType, CustomField, Section, Entry
 
 @admin.register(CustomFieldType)
 class CustomFieldTypeAdmin(admin.ModelAdmin):
-    list_display = ["name", "description"]
+    list_display = ["name", "description", "order_id"]
+    fields = [("name", "order_id"), "name_plural", "description"]
 
 
 @admin.register(CustomField)
 class CustomFieldAdmin(admin.ModelAdmin):
-    list_display = ["name", "type"]
+    list_display = ["name", "type", "order_id"]
     list_filter = ["type"]
+    fields = [("name", "order_id"), "type", "value"]
 
 
 @admin.register(Section)
@@ -22,8 +24,9 @@ class SectionAdmin(admin.ModelAdmin):
 
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
-    list_display = ["name", "section", "published"]
+    list_display = ["name", "section", "published", "order_id"]
     list_filter = ["section", "published"]
-    fields = [("name", "published"), "section", "value", "custom_fields_presentation_order", "custom_fields",
+    fields = [("name", "order_id", "published"), "section", "value", "custom_fields_presentation_order",
+              "custom_fields",
               "favorite_by"]
     filter_horizontal = ["custom_fields_presentation_order", "custom_fields", "favorite_by"]

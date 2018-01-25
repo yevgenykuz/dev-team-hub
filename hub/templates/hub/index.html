@@ -13,7 +13,9 @@
             <p>This site is meant to bridge between a development team that develops internal products for its company,
                 and the users of those products. <br>The hub contains 3 main sections - news, wiki and forum. Read more
                 about them below. <br>Don't forget to sign up, and have fun ! </p>
-            <p><a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up &raquo;</a></p>
+            {% if not user.is_authenticated %}
+                <p><a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up &raquo;</a></p>
+            {% endif %}
         </div>
     </div>
 

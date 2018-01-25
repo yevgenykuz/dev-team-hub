@@ -10,9 +10,10 @@ class CustomFieldType(models.Model):
     slug = models.SlugField(max_length=255, unique=True, editable=False)
     name_plural = models.CharField(max_length=255, help_text="This type in plural, for wiki entry presentation")
     description = models.TextField(max_length=2500, help_text="Describe this custom field type")
+    order_id = models.PositiveSmallIntegerField(default=0, help_text="Order in wiki entry page")
 
     class Meta:
-        ordering = ["slug"]
+        ordering = ["order_id"]
 
     def __str__(self):
         return self.name
@@ -28,9 +29,10 @@ class CustomField(models.Model):
     type = models.ForeignKey(CustomFieldType, on_delete=models.SET_NULL, null=True, help_text="The type of this field")
     slug = models.SlugField(max_length=255, unique=True, editable=False)
     value = RichTextField(max_length=20000, help_text="The value of this field")
+    order_id = models.PositiveSmallIntegerField(default=0, help_text="Order in wiki entry page")
 
     class Meta:
-        ordering = ["type__slug", "slug"]
+        ordering = ["type__slug", "order_id"]
 
     def __str__(self):
         return "[" + self.type.name + "] " + self.name
@@ -68,16 +70,22 @@ class Entry(models.Model):
     published = models.BooleanField(default=False)
     value = RichTextField(max_length=20000, help_text="The value of this field", blank=True)
     custom_fields_presentation_order = models.ManyToManyField(CustomFieldType, blank=True,
-                                                              help_text="The custom field types (if any), "
-                                                                        "the order is the presentation order")
+                                                              help_text="The custom field types (if any)."
+                                                                        " The presentation order (that's determined by"
+                                                                        " the order_id of the type) will be shown on"
+                                                                        "the right after saving")
     custom_fields = models.ManyToManyField(CustomField, blank=True,
                                            help_text="The custom fields (if any), "
-                                                     "the order is the presentation order")
+                                                     "The presentation order (that's determined by"
+                                                     " the order_id of the field) will be shown on"
+                                                     "the right after saving")
     favorite_by = models.ManyToManyField(User, blank=True,
-                                         help_text="A list of users that marked this entry as their favorite")
+                                         help_text="A list of users that marked this entry as their favorite,"
+                                                   " better leave untouched")
+    order_id = models.PositiveSmallIntegerField(default=0, help_text="Order in wiki section page")
 
     class Meta:
-        ordering = ["section__slug", "slug"]
+        ordering = ["section__slug", "order_id"]
         verbose_name_plural = "entries"
 
     def __str__(self):
