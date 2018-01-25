@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from wiki.models import Entry, Section
 
@@ -25,3 +25,17 @@ def entry(request, entry_slug):
     return render(request, template_name,
                   {'entry': returned_entry, 'entry_custom_fields_per_type': entry_custom_fields_per_type,
                    'favorite_by': returned_entry.favorite_by.all()})
+
+
+def add_entry_as_favorite(request, entry_slug):
+    wiki_entry = Entry.objects.get(slug=entry_slug)
+    wiki_entry.favorite_by.add(request.user)
+    wiki_entry.save()
+    return redirect('wiki_entry', entry_slug=entry_slug)
+
+
+def remove_entry_as_favorite(request, entry_slug):
+    wiki_entry = Entry.objects.get(slug=entry_slug)
+    wiki_entry.favorite_by.remove(request.user)
+    wiki_entry.save()
+    return redirect('wiki_entry', entry_slug=entry_slug)

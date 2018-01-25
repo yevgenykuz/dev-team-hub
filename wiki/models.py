@@ -73,7 +73,7 @@ class Entry(models.Model):
     custom_fields = models.ManyToManyField(CustomField, blank=True,
                                            help_text="The custom fields (if any), "
                                                      "the order is the presentation order")
-    favorite_by = models.ManyToManyField(User,
+    favorite_by = models.ManyToManyField(User, blank=True,
                                          help_text="A list of users that marked this entry as their favorite")
 
     class Meta:
