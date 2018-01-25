@@ -1,13 +1,15 @@
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
-
 from forum.models import Post
+from news.models import Article
 from wiki.models import Entry
+
 from .forms import SignUpForm
 
 
@@ -43,3 +45,28 @@ class UserUpdateView(UpdateView):
         context['my_posts'] = Post.objects.filter(updated_by__exact=self.request.user)
         context.update(self.kwargs)
         return context
+
+
+def search(request):
+    news_articles = None
+    wiki_entries = None
+    forum_posts = None
+    if request.method == 'GET':
+        text_query = request.GET.get('search_q', None)
+        if text_query is not None:
+            query = SearchQuery(text_query)
+            news_search_vector = SearchVector('title', weight='A') + SearchVector('body', weight='B') + SearchVector(
+                'tags__name', weight='C')
+            wiki_search_vector = SearchVector('name', weight='A') + SearchVector('value', weight='B') + SearchVector(
+                'custom_fields__name', weight='C')
+            forum_search_vector = SearchVector('topic__subject', weight='A') + SearchVector('body', weight='B')
+
+            news_articles = Article.objects.annotate(rank=SearchRank(news_search_vector, query)).filter(
+                rank__gte=0.3, published__exact=True).order_by('-rank')
+            wiki_entries = Entry.objects.annotate(rank=SearchRank(wiki_search_vector, query)).filter(
+                rank__gte=0.3, published__exact=True).order_by('-rank')
+            forum_posts = Post.objects.annotate(rank=SearchRank(forum_search_vector, query)).filter(
+                rank__gte=0.3).order_by('-rank')
+
+    return render(request, 'hub/search.html',
+                  {'news_articles': news_articles, 'wiki_entries': wiki_entries, 'forum_posts': forum_posts})

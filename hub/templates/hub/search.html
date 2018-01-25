@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link href="{% static 'hub/hub_style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}| Home{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Hub</a></li>
+    <li class="breadcrumb-item active">Search results</li>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h5 class="card-header">News articles</h5>
+        <div class="card-body search-inner-scroll">
+            {% if news_articles %}
+                <ul class="favorites">
+                    {% for article in news_articles %}
+                        <div class="card border-primary mb-1">
+                            <div class="ml-1"><a href="{% url 'article' article.slug %}"
+                                                 class="badge badge-primary">{{ article.title }}</a></div>
+                            <div class="ml-1">
+                                {{ article.body|safe|truncatechars_html:100 }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No articles found.
+            {% endif %}
+        </div>
+    </div>
+    <div class="card">
+        <h5 class="card-header">Wiki entries</h5>
+        <div class="card-body search-inner-scroll">
+            {% if wiki_entries %}
+                <ul class="favorites">
+                    {% for entry in wiki_entries %}
+                        <div class="card border-primary mb-1">
+                            <div class="ml-1"><a href="{% url 'wiki_entry' entry.slug %}"
+                                                 class="badge badge-primary">{{ entry.name }}</a></div>
+                            <div class="ml-1">
+                                {{ entry.value|safe|truncatechars_html:100 }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No wiki entries found.
+            {% endif %}
+        </div>
+    </div>
+    <div class="card">
+        <h5 class="card-header">Forum topics</h5>
+        <div class="card-body search-inner-scroll">
+            {% if forum_posts %}
+                <ul class="favorites">
+                    {% for post in forum_posts %}
+                        <div class="card border-primary mb-1">
+                            <div class="ml-1"><a
+                                    href="{% url 'posts_of_topic' post.topic.category.slug post.topic.slug %}"
+                                    class="badge badge-primary">{{ post.topic.name }}</a></div>
+                            <div class="ml-1">
+                                {{ post.body|safe|truncatechars_html:100 }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No forum topics found.
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

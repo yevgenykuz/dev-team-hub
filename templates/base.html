@@ -94,9 +94,10 @@
                 {% endif %}
             {% endif %}
             <!-- search: -->
-            <form class="form-inline ml-2 my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+            <form id="search_form" type="GET" action="{% url 'search' %}" class="form-inline ml-2 my-2 my-lg-0">
+                <input id="search_text" class="form-control mr-sm-2" type="text" placeholder="Search" name="search_q"
+                       required>
+                <button id="search_submit" class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
             </form>
             <!-- user area: -->
             {% if user.is_authenticated %}

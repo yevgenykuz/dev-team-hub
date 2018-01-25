@@ -23,6 +23,9 @@ class SiteConfig(models.Model):
                                               help_text="Link to release notes article")
     custom_links = models.ManyToManyField(CustomLink, blank=True, help_text="Choose custom links")
 
+    class Meta:
+        verbose_name_plural = "site config"
+
     def __str__(self):
         return f"[{self.name}]: Current release version: {self.current_release_version}; Custom links: " \
                + self.display_links()
