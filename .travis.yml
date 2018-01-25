@@ -19,7 +19,7 @@ install:
 
 # set up database, make migrations and migrate before tests:
 before_script:
-  - psql -c "CREATE DATABASE devteamhub;" -U devteamhubadmin
+  - psql -c "CREATE DATABASE devteamhub;" -U postgres
   - python manage.py makemigrations
   - python manage.py migrate
 
