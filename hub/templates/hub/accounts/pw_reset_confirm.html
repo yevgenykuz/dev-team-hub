@@ -3,6 +3,7 @@
 {% block title %}| Password Reset Confirmation{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     {% if validlink %}
         <li class="breadcrumb-item active">Password reset for @{{ form.user.username }}</li>
     {% else %}

@@ -8,12 +8,13 @@
 {% block title %}| My account{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item active">My account</li>
 {% endblock %}
 
 {% block content %}
-    <div class="card-group">
-        <div class="card">
+    <div class="card-deck">
+        <div class="card bc-sc-dark-gray">
             <div class="card-body">
                 <form method="post" novalidate>
                     {% csrf_token %}
@@ -23,40 +24,49 @@
                         password</a>
                 </form>
             </div>
-            <div class="card-footer text-white bg-secondary">
-                Account Details
-            </div>
+            <div class="card-footer bg-sc-dark-gray text-light font-weight-bold">Account Details</div>
         </div>
-        <div class="card">
+        <div class="card bc-sc-dark-gray">
             <div class="card-body inner-scroll">
                 {% if favorite_wiki_entries %}
-                    <ul class="favorites">
+                    <ol class="list-inline strip-list-entry text-center">
                         {% for wiki_entry in favorite_wiki_entries %}
-                            <li><a href="{{ wiki_entry.get_absolute_url }}">{{ wiki_entry.name }}</a></li>
+                            <li class="list-inline-item mb-1">
+                                <a href="{{ wiki_entry.section.get_absolute_url }}" class="badge badge-secondary">
+                                    {{ wiki_entry.section.name }}</a>/<a href="{{ wiki_entry.get_absolute_url }}"
+                                                                         class="badge badge-info">
+                                <i class="fas fa-hand-point-right"></i>{{ wiki_entry.name }}</a>
+                            </li>
                         {% endfor %}
-                    </ul>
+                    </ol>
                 {% else %}
                     No favorites yet.
                 {% endif %}
             </div>
-            <div class="card-footer text-white bg-secondary">
-                My favorite wiki entries
-            </div>
+            <div class="card-footer bg-sc-dark-gray text-light font-weight-bold">My favorite wiki entries</div>
         </div>
     </div>
     <hr>
-    <div class="card">
+    <div class="card bc-sc-dark-gray">
         <div class="card-body inner-scroll">
             {% if my_posts %}
-                <ul class="favorites">
+                <ul class="strip-list-entry">
                     {% for post in my_posts %}
-                        <div class="card border-dark mb-1">
-                            <div class="ml-1"><span class="badge badge-info">{{ post.topic.category.name }}</span> <span
-                                    class="badge badge-warning">{{ post.topic.subject }}</span> <a
-                                    href="{% url 'posts_of_topic'  post.topic.category.slug post.topic.slug %}"
-                                    class="badge badge-primary">Go to
-                                topic</a></div>
-                            <div class="ml-1">
+                        <div class="card mb-1">
+                            <div class="col-12">
+                                <div class="row mb-1">
+                                    <div class="col-6">
+                                        <a href="{{ post.topic.category.get_absolute_url }}" class="badge
+                                        badge-danger">{{ post.topic.category.name }}</a>/<a
+                                            href="{{ post.topic.get_absolute_url }}"
+                                            class="badge badge-success">{{ post.topic.subject }}</a>/<a
+                                            href="{{ post.get_absolute_url }}" class="badge badge-primary"><i
+                                            class="fas fa-hand-point-right"></i> Post</a>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <small class="text-muted">{{ post.last_updated }}</small>
+                                    </div>
+                                </div>
                                 {{ post.body|safe|truncatechars_html:100 }}
                             </div>
                         </div>
@@ -66,8 +76,6 @@
                 No posts yet.
             {% endif %}
         </div>
-        <div class="card-footer text-white bg-secondary">
-            Posts by me
-        </div>
+        <div class="card-footer bg-sc-dark-gray text-light font-weight-bold">Posts by me</div>
     </div>
 {% endblock %}

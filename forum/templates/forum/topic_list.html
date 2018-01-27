@@ -1,20 +1,21 @@
-{% extends 'forum/category_list.html' %}
+{% extends 'base.html' %}
 {% load humanize %}
 
 {% block title %}| Forum{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item"><a href="{% url 'forum' %}">Forum</a></li>
     <li class="breadcrumb-item active">{{ category.name }}</li>
 {% endblock %}
 
 {% block content %}
-    <div class="mb-4">
+    <div class="mb-2">
         <a href="{% url 'new_topic' category.slug %}" class="btn btn-primary">New topic</a>
     </div>
 
-    <table class="table table-striped mb-4">
-        <thead class="thead-dark">
+    <table class="table table-striped mb-2">
+        <thead class="bg-sc-dark-gray text-light">
         <tr>
             <th>Topic</th>
             <th>Created By</th>
@@ -44,12 +45,14 @@
                 <td class="align-middle">{{ topic.created_by.username }}</td>
                 <td class="align-middle">{{ topic.replies }}</td>
                 <td class="align-middle">{{ topic.views }}</td>
-                <td class="align-middle">{{ topic.last_updated|naturaltime }}</td>
+                <td class="align-middle"><a
+                        href="{{ topic.get_last_post.get_absolute_url }}">{{ topic.last_updated|naturaltime }}</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    {% include 'includes/pagination.html' %}
+    {% include 'includes/paginator_reversed.html' %}
 
 {% endblock %}

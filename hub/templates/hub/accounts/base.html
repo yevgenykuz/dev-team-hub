@@ -5,6 +5,12 @@
 {% block nav-bar %}{% endblock %}
 
 <!-- link to home -->
-{% block breadcrumb %}
-    <li class="breadcrumb-item "><a href="{% url 'index' %}">{% site_name request %}</a></li>
+{% block breadcrumb-base %}
+    <div class="row justify-content-center">
+        <ol class="breadcrumb col-lg-6 col-md-8 col-sm-10 ">
+            {% block breadcrumb %}
+                <li class="breadcrumb-item "><a href="{% url 'index' %}"><i class="fas fa-home"></i></a></li>
+            {% endblock %}
+        </ol>
+    </div>
 {% endblock %}

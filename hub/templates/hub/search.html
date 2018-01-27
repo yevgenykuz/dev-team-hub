@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load numerical_presnentation_tags %}
 
 {% block stylesheet %}
     <link href="{% static 'hub/hub_style.css' %}" rel="stylesheet">
@@ -8,21 +9,34 @@
 {% block title %}| Home{% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'index' %}">Hub</a></li>
-    <li class="breadcrumb-item active">Search results</li>
+    {{ block.super }}
+    <li class="breadcrumb-item">Search results</li>
 {% endblock %}
 
 {% block content %}
-    <div class="card">
-        <h5 class="card-header">News articles</h5>
+    <div class="card bc-sc-dark-gray mb-1">
+        <h5 class="card-header bg-sc-dark-gray text-light">News articles</h5>
         <div class="card-body search-inner-scroll">
             {% if news_articles %}
-                <ul class="favorites">
+                <ul class="strip-list-entry">
                     {% for article in news_articles %}
-                        <div class="card border-primary mb-1">
-                            <div class="ml-1"><a href="{% url 'article' article.slug %}"
-                                                 class="badge badge-primary">{{ article.title }}</a></div>
-                            <div class="ml-1">
+                        <div class="card mb-1">
+                            <div class="col-12">
+                                <div class="row mb-1">
+                                    <div class="col-4">
+                                        <a href="{{ article.get_absolute_url }}" class="badge badge-primary"><i
+                                                class="fas fa-hand-point-right"></i> {{ article.title }}</a>
+                                        <small class="text-muted">{% if article.display_tags %}
+                                            <i class="fas fa-tags"></i>: {{ article.display_tags }}{% endif %}</small>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <small class="text-muted">{{ article.created_on }}
+                                            by {{ article.created_by }}</small>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <small class="text-muted">{{ article.rank|as_percentage }}</small>
+                                    </div>
+                                </div>
                                 {{ article.body|safe|truncatechars_html:100 }}
                             </div>
                         </div>
@@ -33,16 +47,27 @@
             {% endif %}
         </div>
     </div>
-    <div class="card">
-        <h5 class="card-header">Wiki entries</h5>
+    <div class="card bc-sc-dark-gray mb-1">
+        <h5 class="card-header bg-sc-dark-gray text-light">Wiki entries</h5>
         <div class="card-body search-inner-scroll">
             {% if wiki_entries %}
-                <ul class="favorites">
+                <ul class="strip-list-entry">
                     {% for entry in wiki_entries %}
-                        <div class="card border-primary mb-1">
-                            <div class="ml-1"><a href="{% url 'wiki_entry' entry.slug %}"
-                                                 class="badge badge-primary">{{ entry.name }}</a></div>
-                            <div class="ml-1">
+                        <div class="card mb-1">
+                            <div class="col-12">
+                                <div class="row mb-1">
+                                    <div class="col-6">
+                                        <a href="{{ entry.section.get_absolute_url }}"
+                                           class="badge badge-secondary">
+                                            {{ entry.section.name }}</a>/<a
+                                            href="{{ entry.get_absolute_url }}"
+                                            class="badge badge-info">
+                                        <i class="fas fa-hand-point-right"></i>{{ entry.name }}</a>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <small class="text-muted">{{ entry.rank|as_percentage }}</small>
+                                    </div>
+                                </div>
                                 {{ entry.value|safe|truncatechars_html:100 }}
                             </div>
                         </div>
@@ -53,24 +78,38 @@
             {% endif %}
         </div>
     </div>
-    <div class="card">
-        <h5 class="card-header">Forum topics</h5>
+    <div class="card bc-sc-dark-gray mb-1">
+        <h5 class="card-header bg-sc-dark-gray text-light">Forum posts</h5>
         <div class="card-body search-inner-scroll">
             {% if forum_posts %}
-                <ul class="favorites">
+                <ul class="strip-list-entry">
                     {% for post in forum_posts %}
-                        <div class="card border-primary mb-1">
-                            <div class="ml-1"><a
-                                    href="{% url 'posts_of_topic' post.topic.category.slug post.topic.slug %}"
-                                    class="badge badge-primary">{{ post.topic.name }}</a></div>
-                            <div class="ml-1">
+                        <div class="card mb-1">
+                            <div class="col-12">
+                                <div class="row mb-1">
+                                    <div class="col-4">
+                                        <a href="{{ post.topic.category.get_absolute_url }}" class="badge
+                                        badge-danger">{{ post.topic.category.name }}</a>/<a
+                                            href="{{ post.topic.get_absolute_url }}"
+                                            class="badge badge-success">{{ post.topic.subject }}</a>/<a
+                                            href="{{ post.get_absolute_url }}" class="badge badge-primary"><i
+                                            class="fas fa-hand-point-right"></i> Post</a>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <small class="text-muted">{{ post.last_updated }}
+                                            by {{ post.updated_by }}</small>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <small class="text-muted">{{ post.rank|as_percentage }}</small>
+                                    </div>
+                                </div>
                                 {{ post.body|safe|truncatechars_html:100 }}
                             </div>
                         </div>
                     {% endfor %}
                 </ul>
             {% else %}
-                No forum topics found.
+                No forum posts found.
             {% endif %}
         </div>
     </div>

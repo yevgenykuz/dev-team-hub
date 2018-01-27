@@ -1,8 +1,9 @@
-{% extends 'forum/post_list.html' %}
+{% extends 'base.html' %}
 
 {% block title %}| Forum{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item"><a href="{% url 'forum' %}">Forum</a></li>
     <li class="breadcrumb-item"><a
             href="{% url 'topics_of_category' post.topic.category.slug %}">{{ post.topic.category.name }}</a></li>

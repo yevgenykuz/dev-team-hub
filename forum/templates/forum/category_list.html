@@ -5,13 +5,14 @@
 {% block title %}| Forum{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item active">Forum</li>
 {% endblock %}
 
 {% block content %}
     {% if category_list %}
         <table class="table">
-            <thead class="thead-dark">
+            <thead class="bg-sc-dark-gray text-light">
             <tr>
                 <th>Category</th>
                 <th>Posts</th>
@@ -36,7 +37,7 @@
                         {% with post=category.get_last_post %}
                             {% if post %}
                                 <small>
-                                    <a href="{% url 'posts_of_topic' category.slug post.topic.slug %}">
+                                    <a href="{{ post.get_absolute_url }}">
                                         By {{ post.updated_by.username }}, {{ post.last_updated|naturaltime }}
                                     </a>
                                 </small>

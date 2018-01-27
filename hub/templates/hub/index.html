@@ -3,42 +3,47 @@
 {% block title %}| Home{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item active">Hub</li>
 {% endblock %}
 
 {% block content %}
-    <div class="jumbotron">
+    <div class="jumbotron bg-sc-dark-gray text-light">
         <div class="container">
             <h1 class="display-3">Welcome to the hub!</h1>
             <p>This site is meant to bridge between a development team that develops internal products for its company,
                 and the users of those products. <br>The hub contains 3 main sections - news, wiki and forum. Read more
                 about them below. <br>Don't forget to sign up, and have fun ! </p>
             {% if not user.is_authenticated %}
-                <p><a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up &raquo;</a></p>
+                <p><a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up <i
+                        class="fas fa-user-plus"></i></a></p>
             {% endif %}
         </div>
     </div>
 
-    <div class="container">
+    <div class="container c-sc-dark-gray">
         <div class="row">
             <div class="col-md-4">
                 <h2>News</h2>
                 <p>The news page contains announcements from the development team. <br>Stuff you'll probably find there:
-                    <br>release notes, infrastructure maintenance and changes, important updates, etc. </p>
-                <p><a class="btn btn-secondary" href="{% url 'news' %}" role="button">News &raquo;</a></p>
+                    <br>Release notes, infrastructure maintenance and changes, important updates, etc. </p>
+                <p><a class="btn btn-primary" href="{% url 'news' %}" role="button"><i
+                        class="fas fa-hand-point-right"></i> News</a></p>
             </div>
             <div class="col-md-4">
                 <h2>Wiki</h2>
                 <p>The wiki page is the knowledge base of the development team and its products. <br>Stuff you'll
-                    probably find there: <br>product information, infrastructure information, development guidelines,
+                    probably find there: <br>Product information, infrastructure information, development guidelines,
                     etc. </p>
-                <p><a class="btn btn-secondary" href="{% url 'wiki' %}" role="button">Wiki &raquo;</a></p>
+                <p><a class="btn btn-primary" href="{% url 'wiki' %}" role="button"><i
+                        class="fas fa-hand-point-right"></i> Wiki</a></p>
             </div>
             <div class="col-md-4">
                 <h2>Forum</h2>
                 <p>The forum page is a public place to discuss and ask questions. <br>Stuff you'll probably find there:
-                    <br>support, product suggestions, development flow suggestions, etc. </p>
-                <p><a class="btn btn-secondary" href="{% url 'forum' %}" role="button">Forum &raquo;</a></p>
+                    <br>Support, product suggestions, development flow suggestions, etc. </p>
+                <p><a class="btn btn-primary" href="{% url 'forum' %}" role="button"><i
+                        class="fas fa-hand-point-right"></i> Forum</a></p>
             </div>
         </div>
     </div>

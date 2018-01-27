@@ -5,9 +5,10 @@ from news.models import Article
 
 class CustomLink(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    order_id = models.PositiveSmallIntegerField(unique=True, default=0,
-                                                help_text="Order for custom links drop-down menu")
     url = models.CharField(max_length=255)
+    order_id = models.PositiveSmallIntegerField(default=0,
+                                                help_text="Order in custom links drop-down menu, relative to other"
+                                                          " custom links.")
 
     class Meta:
         ordering = ["order_id"]
@@ -19,16 +20,19 @@ class CustomLink(models.Model):
 class SiteConfig(models.Model):
     name = models.CharField(max_length=50, default="Dev Team Hub")
     current_release_version = models.CharField(max_length=50, default="0.0.1-SNAPSHOT")
-    current_release_notes = models.ForeignKey(Article, null=True, on_delete=models.SET_NULL,
-                                              help_text="Link to release notes article")
-    custom_links = models.ManyToManyField(CustomLink, blank=True, help_text="Choose custom links")
+    current_release_notes = models.ForeignKey(Article, null=True, blank=True, on_delete=models.SET_NULL,
+                                              help_text="Link to a release notes article that users can reach by"
+                                                        " clicking the current version button in the nav-bar.")
+    custom_links = models.ManyToManyField(CustomLink, blank=True,
+                                          help_text="Choose custom links. The presentation order (that is determined by"
+                                                    " the order id of the custom links) will be shown on the right"
+                                                    " after saving.")
 
     class Meta:
         verbose_name_plural = "site config"
 
     def __str__(self):
-        return f"[{self.name}]: Current release version: {self.current_release_version}; Custom links: " \
-               + self.display_links()
+        return f"[{self.name}]: Current release version: {self.current_release_version}"
 
     def display_links(self):
         """

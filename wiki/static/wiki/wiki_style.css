@@ -1,49 +1,42 @@
-/* Move indicators under carousel, change colors, add text */
 .carousel-indicators {
-    position: relative;
+    position: unset;
 }
 
 .carousel-indicators li {
     cursor: pointer;
-    width: 200px;
-    height: 25px;
-    border: none;
-    color: #fff;
+    height: 1.65rem;
+    width: auto;
     text-indent: 0;
     text-align: center;
-    background-color: #999;
-    transition: all 0.25s ease;
+    transition: all 0.5s ease;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: #e9ecef;
+    color: gray;
 }
 
 .carousel-indicators li.active, .carousel-indicators li:hover {
-    background-color: #428bca;
+    background-color: #455a64;
+    color: whitesmoke;
 }
 
-/* Carousel and its indicators are relative to not overlap */
-.carousel-inner {
-    position: relative;
-}
-
-/* Center the text inside a slide */
 .carousel-item {
     text-align: center;
 }
 
-.carousel-section-entries {
-    text-align: center;
-    display: inline-block;
-    list-style-type: none;
-    padding-left: 0;
+.carousel-item li {
+    cursor: pointer;
+    width: auto;
+    transition: all 0.5s ease;
+    border: none;
+    border-radius: 1rem;
+    background-color: #f3f6f9;
+    color: gray;
 }
 
-/* Remove left padding from wiki cards*/
-.wiki-entry-custom-fields {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-/* Inner scroll in section card */
-.inner-scroll {
-    height: 650px;
-    overflow-y: scroll;
+.carousel-item li.active, .carousel-item li:hover, .carousel-item li:hover a {
+    background-color: #007bff;
+    color: whitesmoke;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }

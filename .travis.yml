@@ -17,18 +17,17 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
 
-# set up database, make migrations and migrate before tests:
+# set up database, make migrations, migrate, and create super user:
 before_script:
   - psql -c "CREATE DATABASE devteamhub;" -U postgres
   - python manage.py makemigrations
   - python manage.py migrate
+  - echo "from django.contrib.auth.models import User; User.objects.filter(email='admin@example.com').delete(); User.objects.create_superuser('admin', 'admin@example.com', 'nimda')" | python manage.py shell
 
-# create super user, and then tests on specific apps
+# run tests:
 script:
-#  - echo "from django.contrib.auth.models import User; User.objects.filter(email='admin@example.com').delete(); User.objects.create_superuser('admin', 'admin@example.com', 'nimda')" | python manage.py shell
   - python manage.py test
-#  - coverage run manage.py test
 
-# run coveralls if tests were successful
+# coveralls for code coverage:
 after_success:
   - coveralls

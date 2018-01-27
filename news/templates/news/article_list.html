@@ -8,6 +8,7 @@
 {% block title %}| News{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     {% if tag %}
         <li class="breadcrumb-item active"><a href="{% url 'news' %}">News</a> - {{ tag }}</li>
     {% else %}
@@ -22,12 +23,14 @@
                 {% for article in article_list %}
                     <div class="article">
                         <hr>
-                        <h2 class="article-title">{{ article.title }}</h2>
+                        <h2 class="article-title c-sc-dark-gray">{{ article.title }}</h2>
                         <p class="article-meta">{{ article.created_on }}
-                            by {{ article.created_by }}<br>Tags: {{ article.display_tags }}
+                            by {{ article.created_by }}<br>{% if article.display_tags %}<i class="fas fa-tags"></i>:
+                                {{ article.display_tags }}{% endif %}
                         </p>
                         {{ article.body|safe|truncatewords:50 }}
-                        <a href="{{ article.get_absolute_url }}">Continue Reading =></a>
+                        <a href="{{ article.get_absolute_url }}">Continue Reading <i
+                                class="fas fa-newspaper"></i></a>
                     </div>
                 {% endfor %}
             {% else %}
@@ -36,14 +39,14 @@
                 </div>
             {% endif %}
 
-            {% include 'includes/pagination.html' %}
+            {% include 'includes/paginator_reversed.html' %}
 
         </div><!-- /.news-main -->
 
         {% if tag_list %}
             <aside class="col-sm-3 ml-sm-auto news-sidebar">
-                <div class="sidebar-module">
-                    <h4>Tags</h4>
+                <div class="sidebar-module c-sc-dark-gray">
+                    <h4><i class="fas fa-tags"></i> Tags</h4>
                     <ol class="list-unstyled">
                         {% for tag in tag_list %}
                             <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>

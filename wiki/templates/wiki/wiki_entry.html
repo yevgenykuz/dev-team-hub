@@ -1,19 +1,21 @@
-{% extends 'wiki/wiki_carousel.html' %}
+{% extends 'base.html' %}
 
 {% block title %}| Wiki{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item"><a href="{% url 'wiki' %}">Wiki</a></li>
     {% if user.is_authenticated %}
         {% if user in favorite_by %}
             <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }} -
-                <a href="{% url 'remove_wiki_entry_as_favorite' entry.slug %}" class="badge badge-info"
-                   data-toggle="tooltip"
-                   data-placement="bottom" title="Click to un-favorite">Favorite</a>
+                <a href="{% url 'remove_wiki_entry_as_favorite' entry.slug %}" class="badge badge-warning"
+                   data-toggle="tooltip" data-placement="bottom" title="Click to un-favorite"><i
+                        class="fas fa-heart"></i></a>
             </li>
         {% else %}
             <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }} -
-                <a href="{% url 'add_wiki_entry_as_favorite' entry.slug %}" class="badge badge-warning">Mark as
+                <a href="{% url 'add_wiki_entry_as_favorite' entry.slug %}" class="badge badge-warning"
+                   data-toggle="tooltip" data-placement="bottom" title="For quick access from your profile">Mark as
                     favorite</a>
             </li>
         {% endif %}
@@ -29,9 +31,9 @@
         {{ entry.value|safe }}
         {% if entry_custom_fields_per_type %}
             <hr>
-            <ul class="wiki-entry-custom-fields">
+            <ul class="strip-list-entry">
                 {% for custom_field_type, custom_fields in entry_custom_fields_per_type.items %}
-                    <div class="card">
+                    <div class="card mb-1">
                         <h5 class="card-header">{{ custom_field_type.name_plural }}</h5>
                         <div class="card-body">
                             <ul>

@@ -132,5 +132,4 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-erase',
     '--cover-package=hub,news,wiki,forum',
-    '--cover-tests',
 ]

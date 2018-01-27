@@ -1,15 +1,21 @@
-{% extends 'news/article_list.html' %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link href="{% static 'news/news_style.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item"><a href="{% url 'news' %}">News</a></li>
     <li class="breadcrumb-item active">{{ article.title }}</li>
 {% endblock %}
 
 {% block content %}
     <div class="article">
-        <h2 class="article-title">{{ article.title }}</h2>
-        <p class="article-meta">{{ article.created_on }} by {{ article.created_by }}<br>Tags: {{ article.display_tags }}
-        </p>
+        <h2 class="article-title c-sc-dark-gray">{{ article.title }}</h2>
+        <p class="article-meta">{{ article.created_on }} by {{ article.created_by }}<br>{% if article.display_tags %}
+            <i class="fas fa-tags"></i>: {{ article.display_tags }}{% endif %}</p>
         {{ article.body|safe }}
     </div>
 {% endblock %}

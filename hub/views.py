@@ -6,10 +6,10 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
+
 from forum.models import Post
 from news.models import Article
 from wiki.models import Entry
-
 from .forms import SignUpForm
 
 
@@ -55,18 +55,31 @@ def search(request):
         text_query = request.GET.get('search_q', None)
         if text_query is not None:
             query = SearchQuery(text_query)
+
+            # In what fields should we search? Give them weights (A highest)
             news_search_vector = SearchVector('title', weight='A') + SearchVector('body', weight='B') + SearchVector(
                 'tags__name', weight='C')
             wiki_search_vector = SearchVector('name', weight='A') + SearchVector('value', weight='B') + SearchVector(
-                'custom_fields__name', weight='C')
-            forum_search_vector = SearchVector('topic__subject', weight='A') + SearchVector('body', weight='B')
+                'custom_fields__name', weight='C') + SearchVector('section__name', weight='D')
+            forum_search_vector = SearchVector('topic__subject', weight='A') + SearchVector('body',
+                                                                                            weight='B') + SearchVector(
+                'topic__category__name', weight='D')
 
-            news_articles = Article.objects.annotate(rank=SearchRank(news_search_vector, query)).filter(
-                rank__gte=0.3, published__exact=True).order_by('-rank')
-            wiki_entries = Entry.objects.annotate(rank=SearchRank(wiki_search_vector, query)).filter(
-                rank__gte=0.3, published__exact=True).order_by('-rank')
-            forum_posts = Post.objects.annotate(rank=SearchRank(forum_search_vector, query)).filter(
-                rank__gte=0.3).order_by('-rank')
+            # Custom weights:
+            news_weights = [0.3, 0.6, 0.8, 1.0]
+            wiki_weights = [0.3, 0.5, 0.8, 1.0]
+            forum_weights = [0.2, 0.3, 0.8, 1.0]
+
+            # Run search and sort results by rank:
+            news_ranked_results = SearchRank(news_search_vector, query, weights=news_weights)
+            news_articles = Article.objects.annotate(rank=news_ranked_results).filter(
+                rank__gte=0.2, publish__exact=True).distinct().order_by('-rank')
+            wiki_ranked_results = SearchRank(wiki_search_vector, query, weights=wiki_weights)
+            wiki_entries = Entry.objects.annotate(rank=wiki_ranked_results).filter(
+                rank__gte=0.2, publish__exact=True).distinct().order_by('-rank')
+            forum_ranked_results = SearchRank(forum_search_vector, query, weights=forum_weights)
+            forum_posts = Post.objects.annotate(rank=forum_ranked_results).filter(
+                rank__gte=0.2).distinct().order_by('-rank')
 
     return render(request, 'hub/search.html',
                   {'news_articles': news_articles, 'wiki_entries': wiki_entries, 'forum_posts': forum_posts})

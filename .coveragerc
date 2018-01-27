@@ -1,9 +1,23 @@
 # .coveragerc
 
-# Don't cover migrations
+# Cover branching (if statements), don't cover certain files
 [run]
-omit = */migrations/*
+branch = True
+omit = */__init__*
+       */tests/*
+       */migrations/*
+       */urls.py
+       */admin.py
+       */apps.py
 
-# Show missing tabs when running locally with django-nose:
+
+# Show missing tabs, exclude lines from coverage counting:
 [report]
 show_missing = True
+exclude_lines =
+    pragma: no cover
+    raise NotImplementedError
+    except ImportError
+    def __repr__
+    if self\.logger\.debug
+    if __name__ == .__main__.:

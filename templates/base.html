@@ -28,10 +28,9 @@
 <!-- Custom nav-bar block for 'child' templates to override: -->
 {% block nav-bar %}
     <!-- nav-bar -->
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'favicon.ico' %}" width="30"
-                                                              height="30" class="align-middle"
-                                                              alt=""> {% site_name request %}</a>
+    <nav class="navbar navbar-expand-xl fixed-top navbar-dark bg-sc-dark-gray">
+        <a class="navbar-brand" href="{% url 'index' %}"><i class="fas fa-h-square fa-spin"></i> {% site_name request %}
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -60,7 +59,7 @@
                             {% if user.is_authenticated and user.is_staff %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'admin:hub_customlink_changelist' %}">Edit
-                                    Links</a>
+                                    Links <i class="fas fa-edit"></i></a>
                             {% endif %}
                         </div>
                     </li>
@@ -70,23 +69,22 @@
                            data-toggle="dropdown">Links</a>
                         <div class="dropdown-menu">
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'admin:hub_customlink_changelist' %}">Edit Links</a>
+                            <a class="dropdown-item" href="{% url 'admin:hub_customlink_changelist' %}">Edit Links <i
+                                    class="fas fa-edit"></i></a>
                         </div>
                     </li>
                 {% endif %}
             </ul>
             <!-- current version: -->
             {% if user.is_authenticated and user.is_staff %}
-                <a class="btn btn-info mr-4" href="{% url 'admin:hub_siteconfig_change' 1 %}" role="button"
-                   data-toggle="tooltip"
-                   data-placement="bottom" title="Edit in admin panel">Current
-                    Version: {% site_current_release_version request %}</a>
+                <a class="btn btn-success mr-4" href="{% url 'admin:hub_siteconfig_change' 1 %}" role="button"
+                   data-toggle="tooltip" data-placement="bottom" title="Edit in admin panel">Current
+                    Version: {% site_current_release_version request %} <i class="fas fa-edit"></i></a>
             {% else %}
                 {% site_current_release_notes request as article_slug %}
                 {% if article_slug %}
                     <a class="btn btn-success mr-4" href="{% url 'article' article_slug %}" role="button"
-                       data-toggle="tooltip"
-                       data-placement="bottom" title="See release notes">Current
+                       data-toggle="tooltip" data-placement="bottom" title="See release notes">Current
                         Version: {% site_current_release_version request %}</a>
                 {% else %}
                     <button class="btn btn-success mr-4" type="button">Current
@@ -94,32 +92,36 @@
                 {% endif %}
             {% endif %}
             <!-- search: -->
-            <form id="search_form" type="GET" action="{% url 'search' %}" class="form-inline ml-2 my-2 my-lg-0">
-                <input id="search_text" class="form-control mr-sm-2" type="text" placeholder="Search" name="search_q"
+            <form id="search_form" type="GET" action="{% url 'search' %}"
+                  class="form-inline mr-4">
+                <input id="search_text" class="form-control mr-2" type="text" placeholder="Search..." name="search_q"
                        required>
-                <button id="search_submit" class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+                <button id="search_submit" class="btn btn-outline-warning" type="submit"><i
+                        class="fas fa-search"></i>
+                </button>
             </form>
             <!-- user area: -->
             {% if user.is_authenticated %}
-                <ul class="navbar-nav ml-2 my-2 my-lg-0">
+                <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userArea"
                            data-toggle="dropdown">{{ user.username }}</a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{% url 'account' %}">My account</a>
+                            <a class="dropdown-item" href="{% url 'account' %}">My account <i
+                                    class="fas fa-user"></i></a>
                             {% if user.is_staff %}
-                                <a class="dropdown-item" href="{% url 'admin:index' %}">Admin panel</a>
+                                <a class="dropdown-item" href="{% url 'admin:index' %}">Admin panel <i
+                                        class="fas fa-user-secret"></i></a>
                             {% endif %}
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log out <i
+                                    class="fas fa-sign-out-alt"></i></a>
                         </div>
                     </li>
                 </ul>
             {% else %}
-                <form class="form-inline my-2 my-lg-0">
-                    <a href="{% url 'login' %}" class="btn btn-outline-secondary ml-4">Log in</a>
-                    <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Sign up</a>
-                </form>
+                <a href="{% url 'login' %}" class="btn btn-outline-light mr-2">Log in</a>
+                <a href="{% url 'signup' %}" class="btn btn-light">Sign up</a>
             {% endif %}
         </div>
     </nav>
@@ -127,19 +129,24 @@
 
 <!-- Main content container: -->
 <main role="main" class="container">
-    <!-- Breadcrumb block: -->
-    <ol class="breadcrumb my-4">
-        {% block breadcrumb %}
-        {% endblock %}
-    </ol>
-    <!-- Content block: -->
-    {% block content %}
+    <!-- Custom breadcrumb block for 'child' templates to override: -->
+    {% block breadcrumb-base %}
+        <ol class="breadcrumb my-2">
+            {% block breadcrumb %}
+                <li class="breadcrumb-item "><a href="{% url 'index' %}"><i class="fas fa-home"></i></a></li>
+            {% endblock %}
+        </ol>
     {% endblock %}
+    <!-- Content block: -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 </main>
 
 <!-- Footer container -->
-<footer class="footer">
-    &copy; 2018 {% site_name request %} <a href="#">&#8686;</a>
+<footer class="footer bg-sc-dark-gray text-light">
+    &copy; 2018 {% site_name request %} <a class="text-light" href="#"><i class="fas fa-angle-double-up"></i></a>
 </footer>
 
 
@@ -154,9 +161,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<!-- Font awesome icons -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<!-- Light up nav-bar current section -->
+<script src="{% static 'updateNavBar.js' %}"></script>
 <!-- Custom JS block for 'child' templates to override: -->
 {% block javascript %}
-    <script src="{% static 'updateNavBar.js' %}"></script>
 {% endblock %}
 </body>
 </html>

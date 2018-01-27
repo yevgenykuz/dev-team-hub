@@ -8,7 +8,7 @@ def wiki(request):
     entries_per_section = {}
     wiki_sections = Section.objects.all()
     for section in wiki_sections:
-        entries_per_section[section] = Entry.objects.filter(published__exact=True, section__exact=section)
+        entries_per_section[section] = Entry.objects.filter(publish__exact=True, section__exact=section)
     return render(request, template_name, {'entries_per_section': entries_per_section})
 
 

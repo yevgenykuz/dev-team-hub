@@ -8,6 +8,7 @@
 {% block title %}| Wiki{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item active">Wiki</li>
 {% endblock %}
 
@@ -15,11 +16,11 @@
     {% if entries_per_section %}
         <div id="wikiCarousel" class="carousel slide" data-ride="false">
             <!--  Carousel indicators (section names) -->
-            <ol class="carousel-indicators">
+            <ol class="row carousel-indicators">
                 {% for section in entries_per_section %}
                     <li data-target="#wikiCarousel"
                         data-slide-to="{{ forloop.counter0 }}"
-                        class="{% if forloop.first %}active{% endif %}">{{ section.name }}
+                        class="{% if forloop.first %}active{% endif %} col-xl-5 mb-1">{{ section.name }}
                     </li>
                 {% endfor %}
             </ol>
@@ -29,22 +30,25 @@
                 {% for section, entries in entries_per_section.items %}
                     <div class="carousel-item{% if forloop.first %} active{% endif %}">
                         {% if entries %}
-                            <!-- TODO: Stretch this card to full height (h-100 in all parent divs?): -->
-                            <div class="card">
-                                <div class="card-body inner-scroll">
-                                    <ul class="carousel-section-entries">
-                                        {% for entry in entries %}
-                                            <li><a href="{{ entry.get_absolute_url }}">{{ entry.name }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </div>
+                            <ol class="list-inline strip-list-entry">
+                                {% for entry in entries %}
+                                    <li class="list-inline-item col-xl-3 mb-1">
+                                        <a href="{{ entry.get_absolute_url }}">{{ entry.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        {% else %}
+                            <div class="text-center">No entries in category.</div>
                         {% endif %}
                     </div>
                 {% endfor %}
             </div>
         </div>
     {% else %}
-        <p>There are no wiki entries.</p>
+        <p>There are no wiki categories.</p>
     {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'wiki/goToCarouselSlide.js' %}"></script>
 {% endblock %}

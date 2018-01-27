@@ -1,8 +1,9 @@
-{% extends 'forum/topic_list.html' %}
+{% extends 'base.html' %}
 
 {% block title %}| Forum{% endblock %}
 
 {% block breadcrumb %}
+    {{ block.super }}
     <li class="breadcrumb-item"><a href="{% url 'forum' %}">Forum</a></li>
     <li class="breadcrumb-item"><a
             href="{% url 'topics_of_category' category.slug %}">{{ category.name }}</a></li>
@@ -10,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <form method="post" class="mb-4" novalidate>
+    <form method="post" class="mb-2" novalidate>
         {% csrf_token %}
         {% include 'includes/form.html' %}
         <button type="submit" class="btn btn-success">Post</button>

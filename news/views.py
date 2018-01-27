@@ -16,9 +16,9 @@ class NewsListView(ListView):
 
     def get_queryset(self):
         try:
-            return Article.objects.filter(published__exact=True, tags__name__exact=self.kwargs['tag'])
+            return Article.objects.filter(publish__exact=True, tags__name__exact=self.kwargs['tag'])
         except KeyError:
-            return Article.objects.filter(published__exact=True)
+            return Article.objects.filter(publish__exact=True)
 
 
 def article(request, article_slug):
