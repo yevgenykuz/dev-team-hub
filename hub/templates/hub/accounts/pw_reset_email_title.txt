@@ -1,1 +1,1 @@
-Please reset your password
+{% load site_config_tags %}{% site_name request %} - Please reset your password

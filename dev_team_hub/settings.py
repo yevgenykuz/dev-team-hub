@@ -6,12 +6,17 @@ import os
 
 import dj_database_url
 from decouple import config, Csv
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.conf.global_settings import ADMINS, SERVER_EMAIL
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Debug mode:
 DEBUG = config('DEBUG', default=False, cast=bool)
+
+# Admins and managers list for error reporting if DEBUG=False:
+ADMINS = config('ADMINS', cast=Csv(cast=tuple))  # 500 errors
+MANAGERS = config('MANAGERS', cast=Csv(cast=tuple))  # 404 errors
 
 # Security:
 SECRET_KEY = config('SECRET_KEY')
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.common.BrokenLinkEmailsMiddleware',  # send emails to MANAGERS if user got a 404 page
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -115,14 +121,16 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 # Email:
-EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 EMAIL_HOST = config('EMAIL_HOST', default='')
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
-DEFAULT_FROM_EMAIL = 'Dev Team <DevTeam@company.com>'
-EMAIL_SUBJECT_PREFIX = '[Dev Team Hub] '
+DEFAULT_FROM_EMAIL = config('EMAIL_FROM', default='Dev Team <DevTeam@company.com>')
+# Error report emails prefix:
+SERVER_EMAIL = config('SERVER_EMAIL', default='Dev Team Hub <DevTeamSite@company.com>')
+EMAIL_SUBJECT_PREFIX = config('EMAIL_ERROR_REPORT_PREFIX', default='[Dev Team Hub] ')
 
 # Testing:
 # Use nose to run all tests
