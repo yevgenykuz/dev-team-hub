@@ -9,7 +9,12 @@
 
 {% block breadcrumb %}
     {{ block.super }}
-    <li class="breadcrumb-item active">Wiki</li>
+    <li class="breadcrumb-item active">Wiki
+        {% if user.is_staff %}
+            <a href="{% url 'admin:app_list' 'wiki' %}" class="badge badge-danger"
+               data-toggle="tooltip" data-placement="bottom" title="Edit in admin panel"><i
+                    class="fas fa-wrench"></i></a>
+        {% endif %}</li>
 {% endblock %}
 
 {% block content %}

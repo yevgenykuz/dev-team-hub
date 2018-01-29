@@ -59,7 +59,7 @@
                             {% if user.is_authenticated and user.is_staff %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'admin:hub_customlink_changelist' %}">Edit
-                                    Links <i class="fas fa-edit"></i></a>
+                                    Links <i class="fas fa-wrench"></i></a>
                             {% endif %}
                         </div>
                     </li>
@@ -70,7 +70,7 @@
                         <div class="dropdown-menu">
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'admin:hub_customlink_changelist' %}">Edit Links <i
-                                    class="fas fa-edit"></i></a>
+                                    class="fas fa-wrench"></i></a>
                         </div>
                     </li>
                 {% endif %}
@@ -79,7 +79,7 @@
             {% if user.is_authenticated and user.is_staff %}
                 <a class="btn btn-success mr-4" href="{% url 'admin:hub_siteconfig_change' 1 %}" role="button"
                    data-toggle="tooltip" data-placement="bottom" title="Edit in admin panel">Current
-                    Version: {% site_current_release_version request %} <i class="fas fa-edit"></i></a>
+                    Version: {% site_current_release_version request %} <i class="fas fa-wrench"></i></a>
             {% else %}
                 {% site_current_release_notes request as article_slug %}
                 {% if article_slug %}
@@ -111,7 +111,7 @@
                                     class="fas fa-user"></i></a>
                             {% if user.is_staff %}
                                 <a class="dropdown-item" href="{% url 'admin:index' %}">Admin panel <i
-                                        class="fas fa-user-secret"></i></a>
+                                        class="fas fa-sliders-h"></i></a>
                             {% endif %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'logout' %}">Log out <i
@@ -121,7 +121,7 @@
                 </ul>
             {% else %}
                 <a href="{% url 'login' %}" class="btn btn-outline-light mr-2">Log in</a>
-                <a href="{% url 'signup' %}" class="btn btn-light">Sign up</a>
+                <a href="{% url 'signup' %}" class="btn btn-primary">Sign up</a>
             {% endif %}
         </div>
     </nav>

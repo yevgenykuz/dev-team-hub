@@ -110,7 +110,7 @@ class Entry(models.Model):
         verbose_name_plural = "entries"
 
     def __str__(self):
-        return f"{self.section.name} {self.name}"
+        return f"[{self.section.name}] {self.name}"
 
     def save(self, *args, **kwargs):
         # update slug field when saving from admin:

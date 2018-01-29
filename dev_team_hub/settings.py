@@ -5,9 +5,10 @@ Django settings for dev-team-hub project.
 import os
 
 import dj_database_url
+import raven
 from decouple import config, Csv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from django.conf.global_settings import ADMINS, SERVER_EMAIL
+from django.utils.log import DEFAULT_LOGGING
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -15,8 +16,65 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Admins and managers list for error reporting if DEBUG=False:
-ADMINS = config('ADMINS', cast=Csv(cast=tuple))  # 500 errors
-MANAGERS = config('MANAGERS', cast=Csv(cast=tuple))  # 404 errors
+ADMINS = config('ADMINS', default='', cast=Csv(cast=tuple))  # 500 errors
+MANAGERS = config('MANAGERS', default='', cast=Csv(cast=tuple))  # 404 errors
+
+# Logging and sentry:
+LOG_LEVEL = config('LOG_LEVEL', default='INFO')
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': DEFAULT_LOGGING['filters']['require_debug_false'],
+        'require_debug_true': DEFAULT_LOGGING['filters']['require_debug_true']
+    },
+    'formatters': {
+        'verbose': {
+            'format': '[%(asctime)s] %(name)-16s %(levelname)-8s: %(message)s',
+            'datefmt': '%d-%b-%Y %H:%M:%S'
+        },
+        'django.server': DEFAULT_LOGGING['formatters']['django.server']
+    },
+    'handlers': {
+        'console': {
+            'level': LOG_LEVEL,
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'sentry': {
+            'level': 'WARNING',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+        'local_file': {
+            'level': LOG_LEVEL,
+            'filters': ['require_debug_false'],
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': os.path.join(config('LOGS_DIR', default=''), 'hub.log'),
+            'maxBytes': 1024 * 1024 * 20,  # 20MB,
+            'backupCount': 10,
+        },
+        'django.server': DEFAULT_LOGGING['handlers']['django.server'],
+        'mail_admins': DEFAULT_LOGGING['handlers']['mail_admins'],
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console', 'mail_admins', 'sentry', 'local_file'],
+            'level': LOG_LEVEL,
+        },
+        'django.server': {
+            'handlers': ['django.server', 'sentry', 'local_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    }
+}
+
+RAVEN_CONFIG = {
+    'dsn': config('SENTRY_DSN', default=''),
+    'release': raven.fetch_git_sha(BASE_DIR),
+}
 
 # Security:
 SECRET_KEY = config('SECRET_KEY')
@@ -38,6 +96,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'django_nose',
+    'raven.contrib.django.raven_compat',
     'ckeditor',
     'widget_tweaks',
 

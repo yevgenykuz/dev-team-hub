@@ -79,7 +79,6 @@ coverage.xml
 
 # Django #
 ##########
-*.log
 .static_storage/
 .media/
 local_settings.py
@@ -148,3 +147,8 @@ venv.bak/
 # mypy #
 ########
 .mypy_cache/
+
+# logs #
+########
+*.log
+logs

@@ -8,7 +8,12 @@
 {% block breadcrumb %}
     {{ block.super }}
     <li class="breadcrumb-item"><a href="{% url 'news' %}">News</a></li>
-    <li class="breadcrumb-item active">{{ article.title }}</li>
+    <li class="breadcrumb-item active">{{ article.title }}
+        {% if user.is_staff %}
+            <a href="{% url 'admin:news_article_change' article.pk %}" class="badge badge-danger"
+               data-toggle="tooltip" data-placement="bottom" title="Edit in admin panel"><i
+                    class="fas fa-wrench"></i></a>
+        {% endif %}</li>
 {% endblock %}
 
 {% block content %}

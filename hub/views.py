@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -11,6 +13,8 @@ from forum.models import Post
 from news.models import Article
 from wiki.models import Entry
 from .forms import SignUpForm
+
+log = logging.getLogger(__name__)
 
 
 def index(request):
@@ -53,6 +57,7 @@ def search(request):
     forum_posts = None
     if request.method == 'GET':
         text_query = request.GET.get('search_q', None)
+        log.info(f"Search triggered for '{text_query}'")
         if text_query is not None:
             query = SearchQuery(text_query)
 
@@ -61,11 +66,11 @@ def search(request):
                 'tags__name', weight='C')
             wiki_search_vector = SearchVector('name', weight='A') + SearchVector('value', weight='B') + SearchVector(
                 'custom_fields__name', weight='C') + SearchVector('section__name', weight='D')
-            forum_search_vector = SearchVector('topic__subject', weight='A') + SearchVector('body',
-                                                                                            weight='B') + SearchVector(
-                'topic__category__name', weight='D')
+            forum_search_vector = SearchVector('body', weight='A') + SearchVector('topic__subject',
+                                                                                  weight='B') + SearchVector(
+                'topic__category__name', weight='C')
 
-            # Custom weights:
+            # Custom weights [D,C,B,A]:
             news_weights = [0.3, 0.6, 0.8, 1.0]
             wiki_weights = [0.3, 0.5, 0.8, 1.0]
             forum_weights = [0.2, 0.3, 0.8, 1.0]
@@ -80,6 +85,9 @@ def search(request):
             forum_ranked_results = SearchRank(forum_search_vector, query, weights=forum_weights)
             forum_posts = Post.objects.annotate(rank=forum_ranked_results).filter(
                 rank__gte=0.2).distinct().order_by('-rank')
+
+            if not news_articles and not wiki_entries and not forum_posts:
+                log.warning(f"Search found nothing for '{text_query}'")
 
     return render(request, 'hub/search.html',
                   {'news_articles': news_articles, 'wiki_entries': wiki_entries, 'forum_posts': forum_posts})

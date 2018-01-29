@@ -7,7 +7,12 @@
     <li class="breadcrumb-item"><a href="{% url 'wiki' %}">Wiki</a></li>
     {% if user.is_authenticated %}
         {% if user in favorite_by %}
-            <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }} -
+            <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }}
+                {% if user.is_staff %}
+                    <a href="{% url 'admin:wiki_entry_change' entry.pk %}" class="badge badge-danger"
+                       data-toggle="tooltip" data-placement="bottom" title="Edit in admin panel"><i
+                            class="fas fa-wrench"></i></a>
+                {% endif %}
                 <a href="{% url 'remove_wiki_entry_as_favorite' entry.slug %}" class="badge badge-warning"
                    data-toggle="tooltip" data-placement="bottom" title="Click to un-favorite"><i
                         class="fas fa-heart"></i></a>
@@ -27,14 +32,14 @@
 {% block content %}
     <!-- Wiki entry -->
     <div>
-        <h2>{{ entry.name }}</h2>
+        <h2 class="c-sc-dark-gray">{{ entry.name }}</h2>
         {{ entry.value|safe }}
         {% if entry_custom_fields_per_type %}
             <hr>
             <ul class="strip-list-entry">
                 {% for custom_field_type, custom_fields in entry_custom_fields_per_type.items %}
-                    <div class="card mb-1">
-                        <h5 class="card-header">{{ custom_field_type.name_plural }}</h5>
+                    <div class="card bc-sc-dark-gray mb-1">
+                        <h5 class="card-header bg-sc-dark-gray text-light">{{ custom_field_type.name_plural }}</h5>
                         <div class="card-body">
                             <ul>
                                 {% for custom_field in custom_fields %}
