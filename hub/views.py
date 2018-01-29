@@ -8,10 +8,10 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
-
 from forum.models import Post
 from news.models import Article
 from wiki.models import Entry
+
 from .forms import SignUpForm
 
 log = logging.getLogger(__name__)
@@ -88,6 +88,7 @@ def search(request):
 
             if not news_articles and not wiki_entries and not forum_posts:
                 log.warning(f"Search found nothing for '{text_query}'")
+                log.error("An error")
 
     return render(request, 'hub/search.html',
                   {'news_articles': news_articles, 'wiki_entries': wiki_entries, 'forum_posts': forum_posts})
