@@ -16,8 +16,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Admins and managers list for error reporting if DEBUG=False:
-ADMINS = config('ADMINS', default='', cast=Csv(cast=tuple))  # 500 errors
-MANAGERS = config('MANAGERS', default='', cast=Csv(cast=tuple))  # 404 errors
+TEMP_ADMINS = config('ADMINS', default='', cast=Csv())
+TEMP_MANAGERS = config('MANAGERS', default='', cast=Csv())
+ADMINS = [(name, email) for name, email in zip(TEMP_ADMINS[0::2], TEMP_ADMINS[1::2])]  # 500 errors
+MANAGERS = [(name, email) for name, email in zip(TEMP_MANAGERS[0::2], TEMP_MANAGERS[1::2])]  # 404 errors
 
 # Logging and sentry:
 LOG_LEVEL = config('LOG_LEVEL', default='INFO')
