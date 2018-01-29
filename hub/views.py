@@ -88,7 +88,6 @@ def search(request):
 
             if not news_articles and not wiki_entries and not forum_posts:
                 log.warning(f"Search found nothing for '{text_query}'")
-                log.error("An error")
 
     return render(request, 'hub/search.html',
                   {'news_articles': news_articles, 'wiki_entries': wiki_entries, 'forum_posts': forum_posts})
