@@ -18,7 +18,12 @@
                         class="fas fa-heart"></i></a>
             </li>
         {% else %}
-            <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }} -
+            <li class="breadcrumb-item active">[{{ entry.section.name }}] {{ entry.name }}
+                {% if user.is_staff %}
+                    <a href="{% url 'admin:wiki_entry_change' entry.pk %}" class="badge badge-danger"
+                       data-toggle="tooltip" data-placement="bottom" title="Edit in admin panel"><i
+                            class="fas fa-wrench"></i></a>
+                {% endif %}
                 <a href="{% url 'add_wiki_entry_as_favorite' entry.slug %}" class="badge badge-warning"
                    data-toggle="tooltip" data-placement="bottom" title="For quick access from your profile">Mark as
                     favorite</a>
