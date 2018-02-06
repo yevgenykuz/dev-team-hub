@@ -3,15 +3,15 @@ import logging
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import SearchVector, SearchRank, SearchQuery
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
+
 from forum.models import Post
 from news.models import Article
 from wiki.models import Entry
-
 from .forms import SignUpForm
 
 log = logging.getLogger(__name__)
