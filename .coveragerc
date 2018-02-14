@@ -2,13 +2,14 @@
 
 # Cover branching (if statements), don't cover certain files
 [run]
-branch = True
+branch = False
 omit = */__init__*
        */tests/*
        */migrations/*
        */urls.py
        */admin.py
        */apps.py
+       */models.py
 
 
 # Show missing tabs, exclude lines from coverage counting:
