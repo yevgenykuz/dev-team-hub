@@ -5,8 +5,12 @@ from ..models import CustomLink
 
 class CustomLinkModelTests(TestCase):
     def setUp(self):
-        CustomLink.objects.create(name='Google', url='https://www.google.com', order_id=1)
-        self.custom_link = CustomLink.objects.get(name='Google', url='https://www.google.com', order_id=1)
+        self.custom_link = CustomLink.objects.create(name='Google', url='https://www.google.com', order_id=1)
+
+    def test_new_object(self):
+        self.assertEquals(self.custom_link.name, 'Google')
+        self.assertEquals(self.custom_link.url, 'https://www.google.com')
+        self.assertEquals(self.custom_link.order_id, 1)
 
     def test_field_name(self):
         field_label = self.custom_link._meta.get_field('name').verbose_name
@@ -34,8 +38,3 @@ class CustomLinkModelTests(TestCase):
 
     def test_object_ordering(self):
         self.assertEquals(self.custom_link._meta.ordering, ['order_id'])
-
-    def test_new_object(self):
-        self.assertEquals(self.custom_link.name, 'Google')
-        self.assertEquals(self.custom_link.url, 'https://www.google.com')
-        self.assertEquals(self.custom_link.order_id, 1)
