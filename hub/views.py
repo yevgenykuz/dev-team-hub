@@ -8,10 +8,10 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
-
 from forum.models import Post
 from news.models import Article
 from wiki.models import Entry
+
 from .forms import SignUpForm
 
 log = logging.getLogger(__name__)
@@ -57,8 +57,8 @@ def search(request):
     forum_posts = None
     if request.method == 'GET':
         text_query = request.GET.get('search_q', None)
-        log.info(f"Search triggered for '{text_query}'")
         if text_query is not None:
+            log.info(f"Search triggered for '{text_query}'")
             query = SearchQuery(text_query)
 
             # In what fields should we search? Give them weights (A highest)
