@@ -7,19 +7,25 @@ and the users of those products.
 The site contains 3 basic sections - news, wiki and forum. Read more about them below.
 
 
-.. image:: https://user-images.githubusercontent.com/19968607/38177374-fbe48382-3608-11e8-9fb3-64a46982b953.gif
+.. class:: no-web
+
+    .. image:: https://user-images.githubusercontent.com/19968607/38177374-fbe48382-3608-11e8-9fb3-64a46982b953.gif
+        :alt: Dev Team Hub demo
+        :width: 100%
+        :align: center
 
 
-.. image:: https://travis-ci.org/yevgenykuz/dev-team-hub.svg?branch=master
-    :target: https://travis-ci.org/yevgenykuz/dev-team-hub
-.. image:: https://coveralls.io/repos/github/yevgenykuz/dev-team-hub/badge.svg?branch=master
-    :target: https://coveralls.io/github/yevgenykuz/dev-team-hub?branch=master
-.. image:: https://gemnasium.com/badges/github.com/yevgenykuz/dev-team-hub.svg
-    :target: https://gemnasium.com/github.com/yevgenykuz/dev-team-hub
+.. class:: no-web no-pdf
+
+|travis_ci| |coverage| |dependencies|
 
 
 
-.. contents:: :local:
+.. contents::
+
+.. section-numbering::
+
+
 
 Features
 ========
@@ -113,3 +119,16 @@ License
 BSD-3-Clause - `LICENSE <https://github.com/yevgenykuz/dev-team-hub/blob/master/LICENSE>`_
 
 -----
+
+
+.. |travis_ci| image:: https://travis-ci.org/yevgenykuz/dev-team-hub.svg?branch=master
+    :target: https://travis-ci.org/yevgenykuz/dev-team-hub
+    :alt: Travis CI
+
+.. |coverage| image:: https://coveralls.io/repos/github/yevgenykuz/dev-team-hub/badge.svg?branch=master
+    :target: https://coveralls.io/github/yevgenykuz/dev-team-hub?branch=master
+    :alt: Test coverage
+
+.. |dependencies| image:: https://gemnasium.com/badges/github.com/yevgenykuz/dev-team-hub.svg
+    :target: https://gemnasium.com/github.com/yevgenykuz/dev-team-hub
+    :alt: Dependencies tracking
