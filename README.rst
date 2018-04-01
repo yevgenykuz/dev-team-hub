@@ -37,9 +37,64 @@ Prerequisites
 * PostgreSQL DB for full text search
 * Everything in `requirements.txt <https://github.com/yevgenykuz/dev-team-hub/blob/master/requirements.txt>`_
 
-Deployment
-==========
-Standard Django site deployment
+Deployment (as a development server)
+====================================
+On Ubuntu, follow the following steps (other OS - same process, different commands):
+
+Set up PostgreSQL DB
+--------------------
+
+.. code-block:: bash
+    # get it
+    sudo apt-get -y install postgresql postgresql-contrib
+    
+    # set it up
+    sudo su - postgres
+    createuser u_devteamhub
+    createdb devteamhub --owner u_devteamhub
+    psql -c "ALTER USER u_devteamhub WITH PASSWORD 'YOURSUPERSECRETPASSWORD'"
+    exit
+
+Clone the source code
+---------------------
+
+In your working folder (your home folder, for example)
+
+.. code-block:: bash
+    git clone https://github.com/yevgenykuz/dev-team-hub.git
+    
+Configure your project
+----------------------
+
+This project uses python-decouple and dj-database-url to organize django settings.
+Therefore, you need to create a local .env file and edit it before running the server.
+Use the provided .travis.env file as reference.
+For basic usage, you must have the following settings:
+
+.. code-block:: bash
+    # in your .env file
+    DEBUG=True
+    SECRET_KEY=YOURSUPERSECRETKEY
+    ALLOWED_HOSTS=.localhost,127.0.0.1
+    DATABASE_URL=postgres://u_devteamhub:YOURSUPERSECRETPASSWORD@localhost:5432/devteamhub
+    LOG_LEVEL=INFO
+
+Run it as a Django server
+-------------------------
+
+Make sure you have all python dependencies installed (i recommend using a `virutalenv <https://virtualenv.pypa.io/en/stable/>`_):
+
+.. code-block:: bash
+    # inside the folder you've just cloned:
+    pip install -r requirements.txt
+    
+Now run it as a Django development server:
+
+.. code-block:: bash
+    # inside the folder you've just cloned:
+    python manage.py migrate
+    python manage.py createsuperuser
+    python manage.py runserver
 
 Authors
 =======
@@ -50,5 +105,3 @@ License
 BSD-3-Clause - `LICENSE <https://github.com/yevgenykuz/dev-team-hub/blob/master/LICENSE>`_
 
 -----
-
-**Project is under development, may be unstable**
