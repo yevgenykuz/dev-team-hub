@@ -1,5 +1,7 @@
 **Dev Team Hub**
 
+.. image:: https://user-images.githubusercontent.com/19968607/38177374-fbe48382-3608-11e8-9fb3-64a46982b953.gif
+
 .. image:: https://travis-ci.org/yevgenykuz/dev-team-hub.svg?branch=master
     :target: https://travis-ci.org/yevgenykuz/dev-team-hub
 .. image:: https://coveralls.io/repos/github/yevgenykuz/dev-team-hub/badge.svg?branch=master

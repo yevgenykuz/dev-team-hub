@@ -43,7 +43,7 @@ class CustomField(models.Model):
         ordering = ["type__order_id", "order_id", "slug"]
 
     def __str__(self):
-        return f"{self.type.name} {self.name}"
+        return f"{self.type.name} {self.name}" if self.type is not None else self.name
 
     def save(self, *args, **kwargs):
         # update slug field when saving from admin:
