@@ -77,7 +77,7 @@ In your working folder (your home folder, for example)
 Configure your project
 ----------------------
 
-This project uses python-decouple and dj-database-url to organize django settings.
+This project uses `python-decouple <https://pypi.python.org/pypi/python-decouple>`_ and `dj-database-url <https://pypi.python.org/pypi/dj-database-url>`_ to organize django settings.
 Therefore, you need to create a local .env file and edit it before running the server.
 Use the provided .travis.env file as reference.
 For basic usage, you must have the following settings:
@@ -94,7 +94,7 @@ For basic usage, you must have the following settings:
 Run it as a Django server
 -------------------------
 
-Make sure you have all python dependencies installed (i recommend using a `virutalenv <https://virtualenv.pypa.io/en/stable/>`_):
+Make sure you have all python dependencies installed (i recommend using `virutalenv <https://pypi.python.org/pypi/virtualenv>`_):
 
 .. code-block:: bash
 
