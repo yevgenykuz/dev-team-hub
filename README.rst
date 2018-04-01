@@ -29,6 +29,7 @@ The site contains 3 basic sections - news, wiki and forum. Read more about them 
 
 Features
 ========
+
 * **News section** - contains announcements from the development team (release notes, infrastructure maintenance and changes, important updates, etc.). Articles are filtered by tags
 * **Wiki section** - the knowledge base of the development team and its products (product information, infrastructure information, development guidelines, etc.). Entries can share common "custom fields" to reduce copy-paste clutter
 * **Forum section** - a public place to discuss and ask questions (support, product suggestions, development flow suggestions, etc.)
@@ -36,14 +37,16 @@ Features
 * **Basic search** - performs full text search on wiki entries, news articles, and forum topics
 * **On the fly site configuration** - site name, custom links drop-down, and current product version can be changed without accessing source files
 
-Prerequisites
-=============
+Deployment (as a development server)
+====================================
+
+This project requiers:
+
 * Python 3.6
 * PostgreSQL DB for full text search
 * Everything in `requirements.txt <https://github.com/yevgenykuz/dev-team-hub/blob/master/requirements.txt>`_
 
-Deployment (as a development server)
-====================================
+
 On Ubuntu, follow the following steps (other OS - same process, different commands):
 
 Install PostgreSQL DB
@@ -110,12 +113,17 @@ Now run it as a Django development server:
     python manage.py createsuperuser
     python manage.py runserver
 
+Meta
+====
+
 Authors
-=======
+-------
+
 `yevegnykuz <https://github.com/yevegnykuz>`_
 
 License
-=======
+-------
+
 BSD-3-Clause - `LICENSE <https://github.com/yevgenykuz/dev-team-hub/blob/master/LICENSE>`_
 
 -----
