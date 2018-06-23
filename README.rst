@@ -17,7 +17,7 @@ The site contains 3 basic sections - news, wiki and forum. Read more about them 
 
 .. class:: no-web no-pdf
 
-|travis_ci| |coverage| |dependencies|
+|travis_ci| |coverage|
 
 
 
@@ -136,7 +136,3 @@ BSD-3-Clause - `LICENSE <https://github.com/yevgenykuz/dev-team-hub/blob/master/
 .. |coverage| image:: https://coveralls.io/repos/github/yevgenykuz/dev-team-hub/badge.svg?branch=master
     :target: https://coveralls.io/github/yevgenykuz/dev-team-hub?branch=master
     :alt: Test coverage
-
-.. |dependencies| image:: https://gemnasium.com/badges/github.com/yevgenykuz/dev-team-hub.svg
-    :target: https://gemnasium.com/github.com/yevgenykuz/dev-team-hub
-    :alt: Dependencies tracking
