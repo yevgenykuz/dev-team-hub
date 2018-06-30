@@ -19,6 +19,7 @@ The site contains 3 basic sections - news, wiki and forum. Read more about them 
 
 |travis_ci| |coverage|
 
+-----
 
 
 .. contents::
