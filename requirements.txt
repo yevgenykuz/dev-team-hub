@@ -9,7 +9,7 @@ dj-database-url==0.4.2
 # code coverage:
 coverage==4.4.2
 # logging @ sentry:
-raven==6.5.0
+raven==6.10.0
 
 # Apps:
 # code testing:
