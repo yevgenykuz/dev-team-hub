@@ -18,5 +18,5 @@ django-nose==1.4.6
 django-ckeditor==5.4.0
 django-js-asset==1.0.0
 # form presentation:
-django-widget-tweaks==1.4.1
+django-widget-tweaks==1.4.8
 
