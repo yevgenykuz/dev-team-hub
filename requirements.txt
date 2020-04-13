@@ -15,7 +15,7 @@ raven==6.10.0
 # code testing:
 django-nose==1.4.6
 # rich-text editor:
-django-ckeditor==5.4.0
+django-ckeditor==5.9.0
 django-js-asset==1.2.2
 # form presentation:
 django-widget-tweaks==1.4.8
