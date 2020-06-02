@@ -15,6 +15,7 @@
 {% block content %}
     <div class="card-deck">
         <div class="card bc-sc-dark-gray">
+            <div class="card-header bg-sc-dark-gray text-light font-weight-bold">Account Details</div>
             <div class="card-body">
                 <form method="post" novalidate>
                     {% csrf_token %}
@@ -24,9 +25,9 @@
                         password</a>
                 </form>
             </div>
-            <div class="card-footer bg-sc-dark-gray text-light font-weight-bold">Account Details</div>
         </div>
         <div class="card bc-sc-dark-gray">
+            <div class="card-header bg-sc-dark-gray text-light font-weight-bold">My favorite wiki entries</div>
             <div class="card-body inner-scroll">
                 {% if favorite_wiki_entries %}
                     <ol class="list-inline strip-list-entry text-center">
@@ -43,11 +44,11 @@
                     No favorites yet.
                 {% endif %}
             </div>
-            <div class="card-footer bg-sc-dark-gray text-light font-weight-bold">My favorite wiki entries</div>
         </div>
     </div>
     <hr>
     <div class="card bc-sc-dark-gray">
+        <div class="card-header bg-sc-dark-gray text-light font-weight-bold">Posts by me</div>
         <div class="card-body inner-scroll">
             {% if my_posts %}
                 <ul class="strip-list-entry">
@@ -76,6 +77,5 @@
                 No posts yet.
             {% endif %}
         </div>
-        <div class="card-footer bg-sc-dark-gray text-light font-weight-bold">Posts by me</div>
     </div>
 {% endblock %}
