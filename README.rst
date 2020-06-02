@@ -57,7 +57,7 @@ Get it:
 
 .. code-block:: bash
 
-    sudo apt-get -y install postgresql postgresql-contrib
+    sudo apt-get -y install postgresql postgresql-contrib python-psycopg2 libpq-dev
     
 Set it up:
 
