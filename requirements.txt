@@ -13,7 +13,7 @@ raven==6.10.0
 
 # Apps:
 # code testing:
-django-nose==1.4.6
+django-nose==1.4.7
 # rich-text editor:
 django-ckeditor==5.9.0
 django-js-asset==1.2.2
