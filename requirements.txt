@@ -2,7 +2,7 @@ Django==3.1.1
 
 # Utils:
 # postgres driver:
-psycopg2==2.8.5
+psycopg2==2.8.6
 # django settings organization:
 python-decouple==3.3
 dj-database-url==0.5.0
