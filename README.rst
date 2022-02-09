@@ -61,12 +61,16 @@ Get it:
 
 .. code-block:: bash
 
+    # linux:
     sudo apt-get -y install postgresql postgresql-contrib python-psycopg2 libpq-dev
+    # mac with brew:
+    brew install postgresql
     
 Set it up:
 
 .. code-block:: bash
 
+    # linux:
     sudo su - postgres
     # create a db user and password and allow DB creation for django test suite
     createuser u_devteamhub
@@ -75,6 +79,15 @@ Set it up:
     # create db for local server
     createdb devteamhub --owner u_devteamhub
     exit
+
+    # macos, if you installed postgresql with brew and using psql:
+    psql postgres
+    # create a db user and password and allow DB creation for django test suite
+    CREATE ROLE u_devteamhub WITH LOGIN PASSWORD 'YOURSUPERSECRETPASSWORD';
+    ALTER ROLE u_devteamhub CREATEDB;
+    # create db for local server
+    CREATE DATABASE devteamhub WITH OWNER 'u_devteamhub';
+    \q
 
 Clone the source code
 ---------------------
