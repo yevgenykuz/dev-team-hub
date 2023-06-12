@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, UpdateView
 
 from forum.forms import NewTopicForm, PostForm
@@ -57,6 +58,7 @@ class PostListView(ListView):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def new_topic(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     if request.method == 'POST':
@@ -78,6 +80,7 @@ def new_topic(request, category_slug):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def reply_topic(request, category_slug, topic_slug):
     topic = get_object_or_404(Topic, category__slug=category_slug, slug=topic_slug)
     if request.method == 'POST':

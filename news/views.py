@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render
+from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
 
 from .models import Article, Tag
@@ -21,6 +22,7 @@ class NewsListView(ListView):
             return Article.objects.filter(publish__exact=True)
 
 
+@require_http_methods(["GET"])
 def article(request, article_slug):
     # get article_slug parameter to render the needed article
     returned_article = get_object_or_404(Article, slug=article_slug)
