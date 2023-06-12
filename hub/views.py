@@ -7,6 +7,7 @@ from django.contrib.postgres.search import SearchVector, SearchRank, SearchQuery
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_http_methods
 from django.views.generic import UpdateView
 from forum.models import Post
 from news.models import Article
@@ -17,10 +18,12 @@ from .forms import SignUpForm
 log = logging.getLogger(__name__)
 
 
+@require_http_methods(["GET"])
 def index(request):
     return render(request, "hub/index.html")
 
 
+@require_http_methods(["GET", "POST"])
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -51,6 +54,7 @@ class UserUpdateView(UpdateView):
         return context
 
 
+@require_http_methods(["GET"])
 def search(request):
     news_articles = None
     wiki_entries = None

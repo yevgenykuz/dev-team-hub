@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.http import require_http_methods
 
 from wiki.models import Entry, Section
 
 
+@require_http_methods(["GET"])
 def wiki(request):
     template_name = 'wiki/wiki_carousel.html'
     entries_per_section = {}
@@ -12,6 +14,7 @@ def wiki(request):
     return render(request, template_name, {'entries_per_section': entries_per_section})
 
 
+@require_http_methods(["GET"])
 def entry(request, entry_slug):
     template_name = 'wiki/wiki_entry.html'
     returned_entry = get_object_or_404(Entry, slug=entry_slug)
@@ -27,6 +30,7 @@ def entry(request, entry_slug):
                    'favorite_by': returned_entry.favorite_by.all()})
 
 
+@require_http_methods(["GET"])
 def add_entry_as_favorite(request, entry_slug):
     wiki_entry = Entry.objects.get(slug=entry_slug)
     wiki_entry.favorite_by.add(request.user)
@@ -34,6 +38,7 @@ def add_entry_as_favorite(request, entry_slug):
     return redirect('wiki_entry', entry_slug=entry_slug)
 
 
+@require_http_methods(["GET"])
 def remove_entry_as_favorite(request, entry_slug):
     wiki_entry = Entry.objects.get(slug=entry_slug)
     wiki_entry.favorite_by.remove(request.user)

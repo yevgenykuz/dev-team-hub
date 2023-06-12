@@ -45,7 +45,7 @@ Features
 Deployment (as a development server)
 ====================================
 
-This project requiers:
+This project requires:
 
 * Python 3.6
 * PostgreSQL DB for full text search
@@ -54,8 +54,8 @@ This project requiers:
 
 On Ubuntu, follow the following steps (other OS - same process, different commands):
 
-Install PostgreSQL DB
----------------------
+Install PostgresSQL DB
+----------------------
 
 Get it:
 
@@ -65,6 +65,7 @@ Get it:
     sudo apt-get -y install postgresql postgresql-contrib python-psycopg2 libpq-dev
     # mac with brew:
     brew install postgresql
+    brew services run postgresql # or "brew services start postgresql" to have it start at boot
     
 Set it up:
 
