@@ -65,7 +65,11 @@ Get it:
     sudo apt-get -y install postgresql postgresql-contrib python-psycopg2 libpq-dev
     # mac with brew:
     brew install postgresql
-    brew services run postgresql # or "brew services start postgresql" to have it start at boot
+    brew services run postgresql
+    # You can also run "brew services start postgresql" to have it start at boot
+    # or run "/usr/local/opt/postgresql@14/bin/postgres -D /usr/local/var/postgres"
+    # to see the DB logs in terminal
+
     
 Set it up:
 
