@@ -2,7 +2,7 @@ Django==5.1.2
 
 # Utils:
 # postgres driver:
-psycopg2==2.9.9
+psycopg2==2.9.10
 # django settings organization:
 python-decouple==3.8
 dj-database-url==2.2.0
