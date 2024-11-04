@@ -5,7 +5,7 @@ Django==5.1.2
 psycopg2==2.9.10
 # django settings organization:
 python-decouple==3.8
-dj-database-url==2.2.0
+dj-database-url==2.3.0
 # code coverage:
 coverage==7.6.4
 # logging @ sentry:
