@@ -7,7 +7,7 @@ psycopg2==2.9.10
 python-decouple==3.8
 dj-database-url==2.3.0
 # code coverage:
-coverage==7.8.0
+coverage==7.8.2
 # logging @ sentry:
 raven==6.10.0
 
